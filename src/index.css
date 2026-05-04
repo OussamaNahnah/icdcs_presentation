@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Scientific presentation design system.
+  All colors are HSL. Tokens are referenced via Tailwind semantic classes.
+*/
+
+@layer base {
+  :root {
+    /* Surfaces */
+    --background: 210 40% 99%;
+    --foreground: 222 32% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 32% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 32% 14%;
+
+    /* Brand: deep scientific blue */
+    --primary: 218 70% 32%;
+    --primary-foreground: 210 40% 98%;
+    --primary-glow: 214 90% 56%;
+
+    --secondary: 215 32% 95%;
+    --secondary-foreground: 222 32% 18%;
+
+    --muted: 214 28% 95%;
+    --muted-foreground: 215 16% 42%;
+
+    --accent: 199 88% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 24% 89%;
+    --input: 215 24% 89%;
+    --ring: 218 70% 40%;
+
+    --radius: 0.75rem;
+
+    /* Slide tokens */
+    --slide-bg: 210 40% 99%;
+    --slide-surface: 0 0% 100%;
+    --slide-ink: 222 38% 12%;
+    --slide-ink-soft: 218 18% 38%;
+    --slide-rule: 215 24% 88%;
+    --slide-accent: 218 70% 38%;
+    --slide-accent-soft: 214 90% 96%;
+    --slide-grid-line: 215 24% 90%;
+    --slide-obstacle: 222 32% 22%;
+
+    /* Robot light states (luminous robots) */
+    --robot-off: 215 16% 70%;
+    --robot-cyan: 188 86% 48%;
+    --robot-amber: 38 92% 52%;
+    --robot-rose: 340 82% 56%;
+    --robot-violet: 262 72% 58%;
+    --robot-emerald: 158 64% 42%;
+
+    --shadow-soft: 0 1px 2px hsl(220 30% 10% / 0.04), 0 8px 24px -12px hsl(220 30% 10% / 0.10);
+    --shadow-card: 0 1px 2px hsl(220 30% 10% / 0.05), 0 20px 40px -24px hsl(220 30% 10% / 0.18);
+    --shadow-ring: 0 0 0 1px hsl(var(--border));
+
+    --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .dark {
+    --background: 222 32% 8%;
+    --foreground: 210 40% 96%;
+
+    --card: 222 32% 11%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 222 32% 11%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 214 90% 62%;
+    --primary-foreground: 222 32% 10%;
+    --primary-glow: 214 90% 70%;
+
+    --secondary: 222 24% 16%;
+    --secondary-foreground: 210 40% 96%;
+
+    --muted: 222 24% 16%;
+    --muted-foreground: 215 16% 66%;
+
+    --accent: 199 88% 56%;
+    --accent-foreground: 222 32% 10%;
+
+    --destructive: 0 62% 48%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 222 24% 20%;
+    --input: 222 24% 20%;
+    --ring: 214 90% 62%;
+
+    --slide-bg: 222 32% 9%;
+    --slide-surface: 222 32% 12%;
+    --slide-ink: 210 40% 96%;
+    --slide-ink-soft: 215 16% 70%;
+    --slide-rule: 222 24% 22%;
+    --slide-accent: 214 90% 65%;
+    --slide-accent-soft: 218 60% 18%;
+    --slide-grid-line: 222 24% 20%;
+    --slide-obstacle: 215 16% 78%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body, #root {
+    @apply h-full;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+  }
+
+  .font-display {
+    font-family: 'Fraunces', 'Inter', serif;
+    letter-spacing: -0.02em;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+}
+
+@layer components {
+  .slide-surface {
+    background-color: hsl(var(--slide-surface));
+    color: hsl(var(--slide-ink));
+  }
+  .ink-soft { color: hsl(var(--slide-ink-soft)); }
+  .rule { border-color: hsl(var(--slide-rule)); }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium;
+    background: hsl(var(--slide-accent-soft));
+    color: hsl(var(--slide-accent));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
