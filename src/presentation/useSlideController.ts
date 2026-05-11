@@ -28,7 +28,13 @@ export const useSlideController = create<SlideState>((set, get) => ({
   stepsForCurrent: 1,
 
   setTotal: (n) => set({ totalSlides: n }),
-  setStepsForCurrent: (n) => set({ stepsForCurrent: Math.max(1, n) }),
+  setStepsForCurrent: (n) => {
+    const steps = Math.max(1, n);
+    set((state) => ({
+      stepsForCurrent: steps,
+      step: Math.min(state.step, steps - 1),
+    }));
+  },
 
   goTo: (i, step = 0) => {
     const { totalSlides } = get();
@@ -50,8 +56,8 @@ export const useSlideController = create<SlideState>((set, get) => ({
     if (step > 0) {
       set({ step: step - 1 });
     } else if (index > 0) {
-      // jump to previous slide at last step (handled when slide registers steps)
-      set({ index: index - 1, step: 0 });
+      // Jump to previous slide and let step clamping land on its last internal step.
+      set({ index: index - 1, step: Number.MAX_SAFE_INTEGER });
     }
   },
 

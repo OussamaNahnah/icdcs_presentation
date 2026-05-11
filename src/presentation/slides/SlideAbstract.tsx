@@ -29,6 +29,9 @@ const PHASE_DELAY: Record<Phase, number> = {
 };
 
 const SPEED_LEVELS = [0.45, 0.65, 1, 1.35];
+const LOOK_STEP = 2;
+const COMPUTE_STEP = 3;
+const MOVE_STEP = 4;
 
 // ─── Slide ────────────────────────────────────────────────────────────────────
 export default function SlideModel() {
@@ -38,7 +41,7 @@ export default function SlideModel() {
   const [nextPos, setNextPos] = useState(INIT);
   const [moving,  setMoving]  = useState(false);
   const [cycleCount, setCycleCount] = useState(0);
-  const [auto,    setAuto]    = useState(true);
+  const [auto,    setAuto]    = useState(false);
   const [hoverBtn, setHoverBtn] = useState(false);
   const [speedIndex, setSpeedIndex] = useState(1);
 
@@ -83,13 +86,47 @@ export default function SlideModel() {
   }, [shouldAutoLoop, phase, advance, speed]);
 
   useEffect(() => {
-    if (step !== LCM_PANEL_STEP) return;
-    setPhase("idle");
-    setPos(INIT);
-    setNextPos(INIT);
-    setMoving(false);
-    setCycleCount(0);
-  }, [step]);
+    if (step < LCM_PANEL_STEP || auto) return;
+
+    if (step === LCM_PANEL_STEP) {
+      setPhase("idle");
+      setPos(INIT);
+      setNextPos(INIT);
+      setMoving(false);
+      setCycleCount(0);
+      return;
+    }
+
+    if (step === LOOK_STEP) {
+      setPhase("look");
+      setPos(INIT);
+      setNextPos(INIT);
+      setMoving(false);
+      return;
+    }
+
+    if (step === COMPUTE_STEP) {
+      setPhase("compute");
+      setPos(INIT);
+      setNextPos({ r1: INIT.r1 + CELL, r2: INIT.r2 + CELL });
+      setMoving(false);
+      return;
+    }
+
+    if (step >= MOVE_STEP) {
+      const moved = { r1: INIT.r1 + CELL, r2: INIT.r2 + CELL };
+      setPhase("move");
+      setPos(moved);
+      setNextPos(moved);
+      setMoving(false);
+      setCycleCount(1);
+    }
+  }, [step, auto]);
+
+  useEffect(() => {
+    if (!auto || moving) return;
+    if (phase === "move") setPhase("idle");
+  }, [auto, moving, phase]);
 
   return (
     <SlideFrame eyebrow="Model" title="Luminous Robots">

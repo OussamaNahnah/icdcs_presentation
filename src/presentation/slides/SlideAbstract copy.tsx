@@ -1,0 +1,367 @@
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Pause, Play } from "lucide-react";
+import { SlideFrame } from "../SlideFrame";
+import { useSlideController } from "../useSlideController";
+
+const LCM_PANEL_STEP = 1;
+
+// ─── Simulation constants ─────────────────────────────────────────────────────
+const CELL = 40;
+const LOGICAL_COLS = 20;
+const LOGICAL_ROWS = 20;
+const LOGICAL_W = LOGICAL_COLS * CELL;
+const LOGICAL_H = LOGICAL_ROWS * CELL;
+
+// Show a tighter window so each visible grid cell appears larger.
+const VIEW_COLS = 8;
+const VIEW_ROWS = 4;
+const VIEW_W = VIEW_COLS * CELL;
+const VIEW_H = VIEW_ROWS * CELL;
+
+const CY = 120;
+const INIT = { r1: 80, r2: 120 };
+
+type Phase = "idle" | "look" | "compute" | "move";
+
+const PHASE_DELAY: Record<Phase, number> = {
+  idle: 1400, look: 1400, compute: 1400, move: 1400,
+};
+
+const SPEED_LEVELS = [0.45, 0.65, 1, 1.35];
+
+// ─── Slide ────────────────────────────────────────────────────────────────────
+export default function SlideModel() {
+  const step = useSlideController((s) => s.step);
+  const [phase,   setPhase]   = useState<Phase>("idle");
+  const [pos,     setPos]     = useState(INIT);
+  const [nextPos, setNextPos] = useState(INIT);
+  const [moving,  setMoving]  = useState(false);
+  const [cycleCount, setCycleCount] = useState(0);
+  const [auto,    setAuto]    = useState(true);
+  const [hoverBtn, setHoverBtn] = useState(false);
+  const [speedIndex, setSpeedIndex] = useState(1);
+
+  const activePhase: Phase = phase;
+  const shouldAutoLoop = step >= LCM_PANEL_STEP && auto;
+  const speed = SPEED_LEVELS[speedIndex];
+  const moveDurationMs = Math.round(750 / speed);
+  const displayPos = pos;
+  const displayedNextPos = nextPos;
+
+  const advance = useCallback(() => {
+    if (moving) return;
+
+    if (phase === "idle") {
+      setPhase("look");
+    } else if (phase === "look") {
+      setNextPos({ r1: pos.r1 + CELL, r2: pos.r2 + CELL });
+      setPhase("compute");
+    } else if (phase === "compute") {
+      setMoving(true);
+      setPos({ r1: pos.r1 + CELL, r2: pos.r2 + CELL });
+      setPhase("move");
+      setTimeout(() => {
+        const newCycle = cycleCount + 1;
+        setMoving(false);
+        if (newCycle >= 4) {
+          setPos(INIT);
+          setNextPos(INIT);
+          setCycleCount(0);
+        } else {
+          setCycleCount(newCycle);
+        }
+        setPhase("idle");
+      }, moveDurationMs);
+    }
+  }, [phase, pos, moving, cycleCount, moveDurationMs]);
+
+  useEffect(() => {
+    if (!shouldAutoLoop) return;
+    const t = setTimeout(advance, Math.round(PHASE_DELAY[phase] / speed));
+    return () => clearTimeout(t);
+  }, [shouldAutoLoop, phase, advance, speed]);
+
+  useEffect(() => {
+    if (step !== LCM_PANEL_STEP) return;
+    setPhase("idle");
+    setPos(INIT);
+    setNextPos(INIT);
+    setMoving(false);
+    setCycleCount(0);
+  }, [step]);
+
+  return (
+    <SlideFrame eyebrow="Model" title="Luminous Robots">
+      <div className="grid grid-cols-2 flex-1 min-h-0 gap-6">
+
+        {/* ── Left: robot picture + criteria ─────────────────────────────── */}
+        <div className="flex min-w-0 flex-col gap-4 pt-1">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="space-y-3"
+          >
+            <p className="text-base leading-relaxed text-slide-ink sm:text-lg">
+              Simple robots equipped with <strong>visible light colors</strong>.
+            </p>
+            <p className="text-base leading-relaxed text-slide-ink sm:text-lg">
+              They are <strong>autonomous</strong>, <strong>anonymous</strong>,
+              <strong> homogeneous</strong>, have <strong>no memory</strong>,
+              <strong> no compass</strong>, <strong>no communication</strong>,
+              <strong> limited visibility</strong>, and operate in
+              <strong> synchronous LCM cycles</strong>.
+            </p>
+          </motion.div>
+          <div className="relative overflow-hidden rounded-2xl bg-transparent">
+            <svg viewBox="-130 105 260 150" preserveAspectRatio="xMidYMid meet" className="block h-44 w-full">
+              <g transform="translate(0, -28) scale(1.22)">
+              {/* Grid lines */}
+              <g stroke="#e2e8f0" strokeWidth="1.5">
+                {/* Horizontal-ish */}
+                <line x1="0" y1="0" x2="-311.76" y2="180" />
+                <line x1="51.96" y1="30" x2="-259.8" y2="210" />
+                <line x1="103.92" y1="60" x2="-207.84" y2="240" />
+                <line x1="155.88" y1="90" x2="-155.88" y2="270" />
+                <line x1="207.84" y1="120" x2="-103.92" y2="300" />
+                <line x1="259.8" y1="150" x2="-51.96" y2="330" />
+                <line x1="311.76" y1="180" x2="0" y2="360" />
+
+                {/* Vertical-ish */}
+                <line x1="0" y1="0" x2="311.76" y2="180" />
+                <line x1="-51.96" y1="30" x2="259.8" y2="210" />
+                <line x1="-103.92" y1="60" x2="207.84" y2="240" />
+                <line x1="-155.88" y1="90" x2="155.88" y2="270" />
+                <line x1="-207.84" y1="120" x2="103.92" y2="300" />
+                <line x1="-259.8" y1="150" x2="51.96" y2="330" />
+                <line x1="-311.76" y1="180" x2="0" y2="360" />
+              </g>
+
+              {/* Robot 1 (Blue) snapped on center node */}
+              <g transform="translate(0, 150)">
+                <ellipse cx="0" cy="25" rx="20" ry="10" fill="black" opacity="0.15" />
+                <g transform="translate(0, -12)">
+                  <path d="M-12,5 L12,5 L10,24 Q0,28 -10,24 Z" fill="#e2e8f0" stroke="#94a3b8" />
+                  <ellipse cx="0" cy="0" rx="18" ry="15" fill="#f8fafc" stroke="#94a3b8" strokeWidth="1.5" />
+                  <path d="M-14,-2 Q0,2 14,-2 L14,4 Q0,8 -14,4 Z" fill="#1e293b" />
+                  <circle cx="-6" cy="1.5" r="1.5" fill="#22d3ee" />
+                  <circle cx="6" cy="1.5" r="1.5" fill="#22d3ee" />
+                  <ellipse cx="0" cy="-8" rx="10" ry="4" fill="#3b82f6" />
+                </g>
+              </g>
+
+              {/* Robot 2 (Red) snapped on adjacent node (distance 1) */}
+              <g transform="translate(51.96, 180)">
+                <ellipse cx="0" cy="25" rx="20" ry="10" fill="black" opacity="0.15" />
+                <g transform="translate(0, -12)">
+                  <path d="M-12,5 L12,5 L10,24 Q0,28 -10,24 Z" fill="#e2e8f0" stroke="#94a3b8" />
+                  <ellipse cx="0" cy="0" rx="18" ry="15" fill="#f8fafc" stroke="#94a3b8" strokeWidth="1.5" />
+                  <path d="M-14,-2 Q0,2 14,-2 L14,4 Q0,8 -14,4 Z" fill="#1e293b" />
+                  <circle cx="-6" cy="1.5" r="1.5" fill="#22d3ee" />
+                  <circle cx="6" cy="1.5" r="1.5" fill="#22d3ee" />
+                  <ellipse cx="0" cy="-8" rx="10" ry="4" fill="#ef4444" />
+                </g>
+              </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        {/* ── Right: LCM simulation ──────────────────────────────────────── */}
+        {step >= LCM_PANEL_STEP && (
+        <motion.div
+          initial={{ opacity: 0, x: 18 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.35 }}
+          className="flex min-w-0 flex-col gap-3 min-h-0"
+        >
+
+          {/* SVG canvas */}
+          <div
+            className="relative h-[20rem] w-full rounded-2xl border rule bg-slide-bg/30 shadow-soft overflow-hidden"
+            onMouseEnter={() => setHoverBtn(true)}
+            onMouseLeave={() => setHoverBtn(false)}
+          >
+            <div className="absolute top-3 left-3 right-3 z-10 flex flex-wrap gap-2 pointer-events-none">
+              <div className="flex items-center gap-2 rounded-full border rule bg-white/92 px-3 py-1.5 text-[11px] font-medium text-slide-ink shadow-sm backdrop-blur">
+                  <span className="h-3 w-3 rounded-full border border-slate-900 bg-blue-500" />
+                  <span>Robot with blue light</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-full border rule bg-white/92 px-3 py-1.5 text-[11px] font-medium text-slide-ink shadow-sm backdrop-blur">
+                  <span className="h-3 w-3 rounded-full border border-slate-900 bg-red-500" />
+                  <span>Robot with red light</span>
+              </div>
+            </div>
+            <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} preserveAspectRatio="xMinYMin meet" className="w-full h-full">
+              <defs>
+                <pattern id="lcm-g" width={CELL} height={CELL} patternUnits="userSpaceOnUse">
+                  <path d={`M ${CELL} 0 L 0 0 0 ${CELL}`} fill="none" stroke="#111827" strokeWidth="1.5" strokeDasharray="2 2" />
+                </pattern>
+                <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                  <path d="M1,1 L7,4 L1,7 Z" fill="#3b82f6" />
+                </marker>
+                <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                  <path d="M1,1 L7,4 L1,7 Z" fill="#ef4444" />
+                </marker>
+              </defs>
+              <rect width={LOGICAL_W} height={LOGICAL_H} fill="url(#lcm-g)" />
+
+              {/* Visibility range — Look phase */}
+              {activePhase === "look" && <>
+                <polygon
+                  points={`${displayPos.r1},${CY - CELL} ${displayPos.r1 + CELL},${CY} ${displayPos.r1},${CY + CELL} ${displayPos.r1 - CELL},${CY}`}
+                  fill="#3b82f6"
+                  fillOpacity="0.05"
+                  stroke="#3b82f6"
+                  strokeWidth="1"
+                  strokeDasharray="5 3"
+                  opacity="0.7"
+                />
+                <polygon
+                  points={`${displayPos.r2},${CY - CELL} ${displayPos.r2 + CELL},${CY} ${displayPos.r2},${CY + CELL} ${displayPos.r2 - CELL},${CY}`}
+                  fill="#ef4444"
+                  fillOpacity="0.05"
+                  stroke="#ef4444"
+                  strokeWidth="1"
+                  strokeDasharray="5 3"
+                  opacity="0.7"
+                />
+              </>}
+
+              {/* Intended-move arrows — Compute phase */}
+              {activePhase === "compute" && <>
+                <line x1={displayPos.r1} y1={CY} x2={displayedNextPos.r1 - 24} y2={CY}
+                  stroke="#3b82f6" strokeWidth="2" strokeDasharray="5 3" markerEnd="url(#arr-blue)" />
+                <line x1={displayPos.r2} y1={CY} x2={displayedNextPos.r2 - 24} y2={CY}
+                  stroke="#ef4444" strokeWidth="2" strokeDasharray="5 3" markerEnd="url(#arr-red)" />
+              </>}
+
+              {/* Robot 1 (blue light) */}
+              <g style={{
+                transform: `translate(${displayPos.r1}px, ${CY}px)`,
+                transition: moving ? `transform ${moveDurationMs}ms ease-in-out` : "none",
+              }}>
+                <RobotSVG color="#3b82f6" computing={activePhase === "compute"} />
+              </g>
+
+              {/* Robot 2 (red light) */}
+              <g style={{
+                transform: `translate(${displayPos.r2}px, ${CY}px)`,
+                transition: moving ? `transform ${moveDurationMs}ms ease-in-out` : "none",
+              }}>
+                <RobotSVG color="#ef4444" computing={activePhase === "compute"} />
+              </g>
+            </svg>
+
+            {/* Hidden play/pause — visible on hover over grid, bottom-right corner */}
+            <AnimatePresence>
+              {hoverBtn && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute bottom-3 right-3 z-20 flex items-center gap-2"
+                >
+                  <button
+                    onClick={() => setSpeedIndex((i) => Math.max(0, i - 1))}
+                    disabled={speedIndex === 0}
+                    className="flex h-8 items-center justify-center rounded-full bg-white/80 px-2 text-[11px] font-semibold text-slate-700 backdrop-blur border border-slate-200 shadow-md hover:bg-white disabled:opacity-40"
+                    title="Slower"
+                    aria-label="Slower"
+                  >
+                    Slower
+                  </button>
+                  <button
+                    onClick={() => setSpeedIndex((i) => Math.min(SPEED_LEVELS.length - 1, i + 1))}
+                    disabled={speedIndex === SPEED_LEVELS.length - 1}
+                    className="flex h-8 items-center justify-center rounded-full bg-white/80 px-2 text-[11px] font-semibold text-slate-700 backdrop-blur border border-slate-200 shadow-md hover:bg-white disabled:opacity-40"
+                    title="Faster"
+                    aria-label="Faster"
+                  >
+                    Faster
+                  </button>
+                  <button
+                    onClick={() => setAuto(a => !a)}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/80 backdrop-blur border border-slate-200 shadow-md text-slate-700 hover:bg-white transition-colors"
+                    title={auto ? "Pause" : "Play"}
+                    aria-label={auto ? "Pause simulation" : "Play simulation"}
+                  >
+                    {auto ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <div className="w-full flex items-center justify-between gap-4 rounded-2xl border rule bg-slide-bg/45 px-4 py-3 shadow-soft">
+            {/* div className="w-full flex items-center justify-between gap-4" */}
+            <div className="text-sm sm:text-[15px] text-slate-600 min-w-0">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={activePhase}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.25 }}
+                  className="block"
+                >
+                  {activePhase === "look" && "Capturing their local views..."}
+                  {activePhase === "compute" && "Computing..."}
+                  {activePhase === "move" && "Moving..."}
+                  {activePhase === "idle" && "\u00a0"}
+                </motion.span>
+              </AnimatePresence>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="inline-flex items-center rounded-lg border rule bg-slide-bg/70 p-1">
+                {PHASE_INFO.map((phaseInfo) => (
+                  <span
+                    key={phaseInfo.id}
+                    className={`text-xs font-semibold px-3 py-1.5 rounded-md border transition-colors ${
+                      activePhase === phaseInfo.id
+                        ? phaseInfo.activeClass
+                        : "border-transparent text-slate-400"
+                    }`}
+                  >
+                    {phaseInfo.label}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+        )}
+
+      </div>
+    </SlideFrame>
+  );
+}
+
+// ─── Phase metadata ───────────────────────────────────────────────────────────
+const PHASE_INFO = [
+  { id: "look" as Phase, label: "Look", activeClass: "bg-blue-500/15 text-blue-500 border-blue-500/40" },
+  { id: "compute" as Phase, label: "Compute", activeClass: "bg-amber-500/15 text-amber-500 border-amber-500/40" },
+  { id: "move" as Phase, label: "Move", activeClass: "bg-emerald-500/15 text-emerald-500 border-emerald-500/40" },
+];
+
+// ─── Robot marker (dot only) ────────────────────────────────────────────────
+function RobotSVG({ color, computing }: { color: string; computing: boolean }) {
+  return (
+    <g>
+      {/* Compute indicator: pulse */}
+      {computing && (
+        <>
+          <circle cx={0} cy={0} r={9} fill="none" stroke="#f59e0b" strokeWidth="1.3" opacity="0.75">
+            <animate attributeName="r" values="9;13;9" dur="0.9s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.45;1;0.45" dur="0.9s" repeatCount="indefinite" />
+          </circle>
+        </>
+      )}
+      {/* Robot as a luminous dot */}
+      <circle cx={0} cy={0} r={7} fill={color} stroke="#0f172a" strokeWidth="1.2" />
+    </g>
+  );
+}

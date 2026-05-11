@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-130 105 260 150" preserveAspectRatio="xMidYMid meet">
+  <g transform="translate(0, -28) scale(1.22)">
+    <g stroke="#e2e8f0" stroke-width="1.5">
+      <line x1="0" y1="0" x2="-311.76" y2="180" />
+      <line x1="51.96" y1="30" x2="-259.8" y2="210" />
+      <line x1="103.92" y1="60" x2="-207.84" y2="240" />
+      <line x1="155.88" y1="90" x2="-155.88" y2="270" />
+      <line x1="207.84" y1="120" x2="-103.92" y2="300" />
+      <line x1="259.8" y1="150" x2="-51.96" y2="330" />
+      <line x1="311.76" y1="180" x2="0" y2="360" />
+
+      <line x1="0" y1="0" x2="311.76" y2="180" />
+      <line x1="-51.96" y1="30" x2="259.8" y2="210" />
+      <line x1="-103.92" y1="60" x2="207.84" y2="240" />
+      <line x1="-155.88" y1="90" x2="155.88" y2="270" />
+      <line x1="-207.84" y1="120" x2="103.92" y2="300" />
+      <line x1="-259.8" y1="150" x2="51.96" y2="330" />
+      <line x1="-311.76" y1="180" x2="0" y2="360" />
+    </g>
+
+    <g transform="translate(0, 150)">
+      <ellipse cx="0" cy="25" rx="20" ry="10" fill="black" opacity="0.15" />
+      <g transform="translate(0, -12)">
+        <path d="M-12,5 L12,5 L10,24 Q0,28 -10,24 Z" fill="#e2e8f0" stroke="#94a3b8" />
+        <ellipse cx="0" cy="0" rx="18" ry="15" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" />
+        <path d="M-14,-2 Q0,2 14,-2 L14,4 Q0,8 -14,4 Z" fill="#1e293b" />
+        <circle cx="-6" cy="1.5" r="1.5" fill="#22d3ee" />
+        <circle cx="6" cy="1.5" r="1.5" fill="#22d3ee" />
+        <ellipse cx="0" cy="-8" rx="10" ry="4" fill="#3b82f6" />
+      </g>
+    </g>
+
+    <g transform="translate(51.96, 180)">
+      <ellipse cx="0" cy="25" rx="20" ry="10" fill="black" opacity="0.15" />
+      <g transform="translate(0, -12)">
+        <path d="M-12,5 L12,5 L10,24 Q0,28 -10,24 Z" fill="#e2e8f0" stroke="#94a3b8" />
+        <ellipse cx="0" cy="0" rx="18" ry="15" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" />
+        <path d="M-14,-2 Q0,2 14,-2 L14,4 Q0,8 -14,4 Z" fill="#1e293b" />
+        <circle cx="-6" cy="1.5" r="1.5" fill="#22d3ee" />
+        <circle cx="6" cy="1.5" r="1.5" fill="#22d3ee" />
+        <ellipse cx="0" cy="-8" rx="10" ry="4" fill="#ef4444" />
+      </g>
+    </g>
+  </g>
+</svg>

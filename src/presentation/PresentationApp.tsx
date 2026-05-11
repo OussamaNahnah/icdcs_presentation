@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 export function PresentationApp() {
   const {
-    index, mode, showNotes, setTotal, setStepsForCurrent,
+    index, step, mode, showNotes, setTotal, setStepsForCurrent,
     next, prev, setMode, toggleNotes, goTo,
   } = useSlideController();
 
@@ -24,9 +24,14 @@ export function PresentationApp() {
   const autoZoom = () => Math.round(Math.min(window.innerWidth / BASE_WIDTH, window.innerHeight / BASE_HEIGHT) * 100);
   const [fontSize, setFontSize] = useState(autoZoom);
 
-  // Re-compute zoom when window resizes (user can still nudge after)
+  // Re-compute zoom on normal window resizes, but keep fullscreen stable.
+  // Some browsers emit a second resize a few seconds after entering fullscreen
+  // when their UI chrome collapses, which caused the deck to appear to zoom.
   useEffect(() => {
-    const onResize = () => setFontSize(autoZoom());
+    const onResize = () => {
+      if (document.fullscreenElement) return;
+      setFontSize(autoZoom());
+    };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -47,7 +52,14 @@ export function PresentationApp() {
 
   // Fullscreen sync
   useEffect(() => {
-    const handler = () => setIsFullscreen(!!document.fullscreenElement);
+    const handler = () => {
+      const fullscreen = !!document.fullscreenElement;
+      setIsFullscreen(fullscreen);
+
+      if (fullscreen) {
+        setFontSize(autoZoom());
+      }
+    };
     document.addEventListener("fullscreenchange", handler);
     return () => document.removeEventListener("fullscreenchange", handler);
   }, []);
@@ -204,7 +216,7 @@ export function PresentationApp() {
             {/* Floating prev/next on hover (desktop) */}
             <button
               onClick={prev}
-              disabled={index === 0}
+              disabled={index === 0 && step === 0}
               className={cn("hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full border rule bg-slide-surface/80 backdrop-blur shadow-soft hover:bg-slide-accent-soft disabled:opacity-30 disabled:cursor-not-allowed transition-all", isFullscreen && "!hidden")}
               aria-label="Previous"
             >

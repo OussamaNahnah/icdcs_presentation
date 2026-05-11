@@ -1,0 +1,36 @@
+# LaTeX build artifacts
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.xdv
+*.dvi
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.lof
+*.lot
+*.lol
+
+# Latexmk and temp files
+latexmkrc
+*.tmp
+*.temp
+*~
+
+# Generated PDF (remove this line if you want to commit PDFs)
+*.pdf
+
+# Build directories
+_build/
+build/
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db

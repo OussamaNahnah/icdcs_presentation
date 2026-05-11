@@ -1,0 +1,37 @@
+% Slide 2: Model
+\begin{frame}{Model: Luminous Robots}
+\begin{columns}[T,totalwidth=\textwidth]
+\column{0.52\textwidth}
+Simple robots equipped with \textbf{visible light colors}.
+
+\vspace{0.2cm}
+They are \textbf{autonomous}, \textbf{anonymous}, \textbf{homogeneous}, with
+\textbf{no memory}, \textbf{no compass}, \textbf{no communication},
+\textbf{limited visibility}, and they operate in \textbf{synchronous LCM cycles}.
+
+\vspace{0.4cm}
+\begin{tikzpicture}[scale=0.68]
+  \foreach \x in {0,...,6} {
+    \draw[densely dashed,gray!70] (\x,0) -- (\x,4);
+  }
+  \foreach \y in {0,...,4} {
+    \draw[densely dashed,gray!70] (0,\y) -- (6,\y);
+  }
+  \filldraw[bluebot,draw=black] (2,2) circle (0.18);
+  \filldraw[redbot,draw=black] (3,2) circle (0.18);
+\end{tikzpicture}
+
+\column{0.48\textwidth}
+\begin{block}{LCM Phase Flow}
+\begin{itemize}
+  \item \textbf{Look}: capture local neighborhood.
+  \item \textbf{Compute}: decide next movement from local rule.
+  \item \textbf{Move}: move synchronously to next cell.
+\end{itemize}
+\end{block}
+
+\begin{block}{Controls in Demo}
+Play / Pause, Slower / Faster, and step-by-step phase progression.
+\end{block}
+\end{columns}
+\end{frame}
