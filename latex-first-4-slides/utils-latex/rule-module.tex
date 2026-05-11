@@ -1,0 +1,106 @@
+% Reusable rule-view TikZ module
+% Usage: \RuleModule{<visibility>}{<view robots: color/x/y list>}{<center color>}{<direction>}{<dir label>}{<view label>}
+% Directions: left, right, top, btm, idle
+% Example: \RuleModule{1}{redbot/1/0}{bluebot}{right}{R}{Rule 1}
+\newcommand{\RuleModule}[6]{%
+  \begin{tikzpicture}[scale=0.68,>=Stealth,line cap=round]
+    \def\V{#1}
+    \begin{scope}
+      \clip (0,\V) -- (\V,0) -- (0,-\V) -- (-\V,0) -- cycle;
+      \foreach \x in {-\V,...,\V} {%
+        \draw[densely dashed,gray!70] (\x,-\V) -- (\x,\V);
+      }
+      \foreach \y in {-\V,...,\V} {%
+        \draw[densely dashed,gray!70] (-\V,\y) -- (\V,\y);
+      }
+    \end{scope}
+
+    \foreach \x in {-\V,...,\V} {%
+      \foreach \y in {-\V,...,\V} {%
+        \pgfmathtruncatemacro{\d}{abs(\x) + abs(\y)}
+        \ifnum\d>\V\relax\else
+          \fill[gray!25] (\x,\y) circle (0.12);
+        \fi
+      }
+    }
+
+    % Robots visible in the current view.
+    \foreach \c/\rx/\ry in {#2} {%
+      \pgfmathparse{\rx}\let\rrx\pgfmathresult
+      \pgfmathparse{\ry}\let\rry\pgfmathresult
+      \filldraw[\c,draw=black] (\rrx,\rry) circle (0.18);
+    }
+
+    % Central robot that applies the rule.
+    \filldraw[#3,draw=black] (0,0) circle (0.18);
+
+    % Direction action is applied to the central robot only.
+    \def\Dir{#4}
+    \def\Left{left}
+    \def\Right{right}
+    \def\Top{top}
+    \def\Btm{btm}
+    \def\Idle{idle}
+    \ifx\Dir\Left
+      \draw[->,thick,#3] (-0.24,0) -- (-0.6,0)
+        node[midway,above,#3,font=\scriptsize] {#5};
+    \fi
+    \ifx\Dir\Right
+      \draw[->,thick,#3] (0.24,0) -- (0.6,0)
+        node[midway,above,#3,font=\scriptsize] {#5};
+    \fi
+    \ifx\Dir\Top
+      \draw[->,thick,#3] (0,0.24) -- (0,0.6)
+        node[midway,left,#3,font=\scriptsize] {#5};
+    \fi
+    \ifx\Dir\Btm
+      \draw[->,thick,#3] (0,-0.24) -- (0,-0.6)
+        node[midway,left,#3,font=\scriptsize] {#5};
+    \fi
+    \ifx\Dir\Idle
+      \draw[->,thick,#3] (50:0.18) to[out=60,in=0,looseness=6] (-50:0.18)
+        node[midway,above right=10pt,#3,font=\scriptsize] {#5};
+    \fi
+    % Optional bottom-center view label
+    \def\ViewLabel{#6}
+    \ifx\ViewLabel\empty\else
+      \node[font=\scriptsize,black!70,anchor=north] at (0,-\V-0.18) {#6};
+    \fi
+  \end{tikzpicture}%
+}
+
+% View-only module (no direction, no color indicator)
+% Usage: \ViewModule{<visibility>}{<view robots: color/x/y list>}{<center color>}{<label>}
+% Example: \ViewModule{1}{redbot/1/0}{bluebot}{}
+\newcommand{\ViewModule}[4]{%
+  \begin{tikzpicture}[scale=0.68,>=Stealth,line cap=round]
+    \def\V{#1}
+    \begin{scope}
+      \clip (0,\V) -- (\V,0) -- (0,-\V) -- (-\V,0) -- cycle;
+      \foreach \x in {-\V,...,\V} {%
+        \draw[densely dashed,gray!70] (\x,-\V) -- (\x,\V);
+      }
+      \foreach \y in {-\V,...,\V} {%
+        \draw[densely dashed,gray!70] (-\V,\y) -- (\V,\y);
+      }
+    \end{scope}
+    \foreach \x in {-\V,...,\V} {%
+      \foreach \y in {-\V,...,\V} {%
+        \pgfmathtruncatemacro{\d}{abs(\x) + abs(\y)}
+        \ifnum\d>\V\relax\else
+          \fill[gray!25] (\x,\y) circle (0.12);
+        \fi
+      }
+    }
+    \foreach \c/\rx/\ry in {#2} {%
+      \pgfmathparse{\rx}\let\rrx\pgfmathresult
+      \pgfmathparse{\ry}\let\rry\pgfmathresult
+      \filldraw[\c,draw=black] (\rrx,\rry) circle (0.18);
+    }
+    \filldraw[#3,draw=black] (0,0) circle (0.18);
+    \def\ViewLabel{#4}
+    \ifx\ViewLabel\empty\else
+      \node[font=\scriptsize,black!70,anchor=north] at (0,-\V-0.18) {#4};
+    \fi
+  \end{tikzpicture}%
+}

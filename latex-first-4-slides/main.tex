@@ -5,7 +5,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{tikz}
-\usepackage{svg}
 \usepackage{array}
 \usepackage{amsmath}
 \usetikzlibrary{arrows.meta,positioning,calc}
@@ -26,6 +25,10 @@
 
 \newcommand{\bluerobot}{\textcolor{bluebot}{\textbf{blue}}}
 \newcommand{\redrobot}{\textcolor{redbot}{\textbf{red}}}
+\input{utils-latex/rule-module}
+% Helper to create module-indexed frame titles: \ModuleFrameTitle{<n>}{<Title>}
+% Prints the index as an uppercase Roman numeral
+\newcommand{\ModuleFrameTitle}[2]{\textbf{\MakeUppercase{\romannumeral#1}}~#2}
 
 \begin{document}
 \input{slide1-title}
