@@ -8,16 +8,21 @@
 {\small\textbf{Related Works}}
 
 \vspace{0.10cm}
-{\small\begin{itemize}\setlength\itemsep{2pt}
-  \item \textbf{Perpetual grid exploration} without obstacles by luminous robots
-        {\footnotesize\textcolor{softgray}{[Bramas et al., Rauch et al.]}}
-  \item \textbf{Exploration with obstacles} restricted to oblivious/non-myopic robots
-        {\footnotesize\textcolor{softgray}{[Prencipe, Sardar et al.]}}
-  \item \textbf{Formal verification} via proof assistants (Rocq/Pactole) \& model-checking
-        {\footnotesize\textcolor{softgray}{[Bérard et al., Courtieu et al.]}}
-  \item \textbf{Algorithm synthesis} limited to rings and few robots due to combinatorial explosion
-        {\footnotesize\textcolor{softgray}{[Bonnet et al., Millet et al.]}}
-\end{itemize}}
+{\small\begin{itemize}
+  \item \textbf{1. The Problem: Grid Exploration}
+        \newline {\footnotesize\textcolor{softgray}{[Bramas et al., Sardar et al.]}}
+        \newline $\rightarrow$ Luminous robot models explore empty grids; obstacle models use completely different assumptions.
+  
+  \item \textbf{2. Generation: Hand vs. Synthesis}
+        \newline {\footnotesize\textcolor{softgray}{[Bonnet et al., Millet et al.]}}
+        \newline $\rightarrow$ Manual design is error-prone. Automated synthesis suffers from combinatorial explosion (limited to rings).
+
+  \item \textbf{3. Validation: Formal Verification}
+        \newline {\footnotesize\textcolor{softgray}{[Bérard et al., Courtieu et al.]}}
+        \newline $\rightarrow$ Proof Assistants require manual human effort. Model Checking is strictly restricted to small graphs.
+\end{itemize}
+
+}
 
 % ---- Right column: contributions -------------------------------------
 \column{0.46\textwidth}
@@ -25,12 +30,12 @@
 {\small\textbf{Our Contributions}}
 
 \vspace{0.10cm}
-{\small\begin{itemize}\setlength\itemsep{2pt}
-  \item \textcolor{accent}{\textbf{First generic methodology}} for synthesizing perpetual exploration algorithms in grids containing an obstacle.
-  \item \textcolor{accent}{\textbf{Partly automated pipeline}}: scenario-guided synthesis $\rightarrow$ small-grid simulations $\rightarrow$ induction proof.
-  \item \textcolor{accent}{\textbf{New valid algorithms}}: 5 (visibility~1) and 115 (visibility~2) new algorithms extending existing baselines.
-  \item \textcolor{accent}{\textbf{Automated classification}}: categorized by syntactic and performance metrics.
-\end{itemize}}
+{\small\begin{itemize}
+  \item \textcolor{accent}{\textbf{The Problem:}} First generic methodology for synthesizing perpetual exploration algorithms in grids containing an obstacle.
+  \item \textcolor{accent}{\textbf{The Generation:}} Scenario-guided synthesis to overcome the state-space explosion of standard controller synthesis.
+  \item \textcolor{accent}{\textbf{The Validation:}} Partly automated pipeline using small-grid simulations generalized by a mathematical induction proof.
+\end{itemize}
+}
 
 \end{columns}
 \end{frame}
