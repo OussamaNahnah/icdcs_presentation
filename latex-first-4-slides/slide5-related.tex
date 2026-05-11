@@ -11,17 +11,16 @@
 {\small\begin{itemize}
   \item \textbf{1. The Problem: Grid Exploration}
         \newline {\footnotesize\textcolor{softgray}{[Bramas et al., Sardar et al.]}}
-        \newline $\rightarrow$ Luminous robot models explore empty grids; obstacle models use completely different assumptions.
+        \newline $\rightarrow$ \textit{Limits:} Exploration without obstacle (luminous) / Exploration with obstacle (other models)
   
   \item \textbf{2. Generation: Hand vs. Synthesis}
         \newline {\footnotesize\textcolor{softgray}{[Bonnet et al., Millet et al.]}}
-        \newline $\rightarrow$ Manual design is error-prone. Automated synthesis suffers from combinatorial explosion (limited to rings).
+        \newline $\rightarrow$ \textit{Limits:} Error-prone / Combinatorial explosion
 
   \item \textbf{3. Validation: Formal Verification}
         \newline {\footnotesize\textcolor{softgray}{[Bérard et al., Courtieu et al.]}}
-        \newline $\rightarrow$ Proof Assistants require manual human effort. Model Checking is strictly restricted to small graphs.
+        \newline $\rightarrow$ \textit{Limits:} Manual effort / Huge execution space
 \end{itemize}
-
 }
 
 % ---- Right column: contributions -------------------------------------
@@ -31,9 +30,14 @@
 
 \vspace{0.10cm}
 {\small\begin{itemize}
-  \item \textcolor{accent}{\textbf{The Problem:}} First generic methodology for synthesizing perpetual exploration algorithms in grids containing an obstacle.
-  \item \textcolor{accent}{\textbf{The Generation:}} Scenario-guided synthesis to overcome the state-space explosion of standard controller synthesis.
-  \item \textcolor{accent}{\textbf{The Validation:}} Partly automated pipeline using small-grid simulations generalized by a mathematical induction proof.
+  \item \textcolor{accent}{\textbf{The Problem:}} 
+        \newline Perpetual exploration with an \textbf{obstacle}.
+        
+  \item \textcolor{accent}{\textbf{The Generation:}} 
+        \newline \textbf{Scenario-guided} synthesis.
+        
+  \item \textcolor{accent}{\textbf{The Validation:}} 
+        \newline \textbf{Simulations} + \textbf{Induction proof}.
 \end{itemize}
 }
 
