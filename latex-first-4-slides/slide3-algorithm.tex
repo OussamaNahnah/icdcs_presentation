@@ -1,0 +1,101 @@
+% Slide 4: Algorithm
+\begin{frame}{\ModuleFrameTitle{1}{Model: Algorithm}}
+\begin{columns}[T,totalwidth=\textwidth]
+\column{0.52\textwidth}
+\textbf{Algorithm = set of rules}
+
+\vspace{0.2cm}
+\textbf{Rule components}
+\begin{flushleft}
+\begin{tikzpicture}[>=Stealth]
+  \begin{scope}[scale=0.7]
+    \begin{scope}
+      \clip (0,1) -- (1,0) -- (0,-1) -- (-1,0) -- cycle;
+      \foreach \x in {-1,...,1} \draw[densely dashed,gray!70] (\x,-1) -- (\x,1);
+      \foreach \y in {-1,...,1} \draw[densely dashed,gray!70] (-1,\y) -- (1,\y);
+    \end{scope}
+    \foreach \x in {-1,...,1} \foreach \y in {-1,...,1} {
+      \pgfmathtruncatemacro{\d}{abs(\x)+abs(\y)}
+      \ifnum\d>1\relax\else \fill[gray!25] (\x,\y) circle (0.12); \fi
+    }
+    \filldraw[redbot,draw=black]  (1,0) circle (0.18);
+    \filldraw[bluebot,draw=black] (0,0) circle (0.18);
+    \coordinate (C) at (0,0);
+    \draw[->,thick,black] (0.24,0) -- (0.60,0)
+      node[midway,above,font=\scriptsize](Rlabel){R};
+    \coordinate (D) at (Rlabel);
+    \coordinate (A) at (0.5,-0.1);
+    \coordinate (B) at (0.6,0.6);
+
+  \end{scope}
+  \node[anchor=east,scale=2.9,text=black!70] (viewbrace) at (-0.3,0) {\{};
+  \node[anchor=east,font=\scriptsize,text=black!70] at ($(viewbrace.west)+(-0.10,0)$) {View};
+  \draw[<-,black!70,line width=0.5pt] (B) -- ++(0.4, 0.4) node[right,font=\scriptsize]{Color};
+  \draw[<-,black!70,line width=0.5pt] (A) -- ++(0.4,-0.4) node[right,font=\scriptsize]{Direction};
+\end{tikzpicture}
+  \end{flushleft}
+
+
+\textbf{Two-rule example}
+\begin{columns}[T,totalwidth=\linewidth]
+\column{0.49\linewidth}
+\RuleModule{1}{redbot/1/0}{bluebot}{right}{R}{Rule 1}
+\column{0.49\linewidth}
+\RuleModule{1}{bluebot/1/0}{redbot}{left}{L}{Rule 2}
+\end{columns}
+
+\column{0.48\textwidth}
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,scale=0.72]
+  % Grid
+  \foreach \x in {0,...,5} \draw[densely dashed,gray!60] (\x,0)--(\x,4);
+  \foreach \y in {0,...,4} \draw[densely dashed,gray!60] (0,\y)--(5,\y);
+
+  % Phase label
+  \node[font=\small,anchor=south] at (2.5,4.15) {%
+    \only<1>{\textbf{Look}}\only<2->{Look}%
+    ~$>$~%
+    \only<2>{\textbf{Compute}}\only<1,3>{Compute}%
+    ~$>$~%
+    \only<3>{\textbf{Move}}\only<1-2>{Move}%
+  };
+
+  % Look: highlight V=1 visibility diamonds
+  \only<1>{
+    \fill[bluebot,opacity=0.15] (2,3)--(3,2)--(2,1)--(1,2)--cycle;
+    \draw[bluebot,opacity=0.50,densely dotted,thick] (2,3)--(3,2)--(2,1)--(1,2)--cycle;
+    \fill[redbot,opacity=0.15]  (3,3)--(4,2)--(3,1)--(2,2)--cycle;
+    \draw[redbot,opacity=0.50,densely dotted,thick]  (3,3)--(4,2)--(3,1)--(2,2)--cycle;
+  }
+
+  % Compute: matched rule callouts with arrows
+  \only<2>{
+    \draw[->,thick,bluebot] (2.22,2.18) -- (2.78,2.18)
+      node[midway,above,font=\scriptsize,bluebot] {R};
+    \draw[->,thick,redbot]  (3.22,2.18) -- (3.78,2.18)
+      node[midway,above,font=\scriptsize,redbot]  {L};
+  }
+
+  % Move: robots shifted one step right
+  \only<3>{
+    \filldraw[bluebot,draw=black] (3,2) circle (0.18);
+    \filldraw[redbot,draw=black]  (4,2) circle (0.18);
+  }
+
+  % Robots at original positions (Look + Compute only)
+  \only<1-2>{
+    \filldraw[bluebot,draw=black] (2,2) circle (0.18);
+    \filldraw[redbot,draw=black]  (3,2) circle (0.18);
+  }
+
+  % Phase captions
+  \only<1>{\node[font=\tiny\itshape,gray!60,anchor=north] at (2.5,-0.25) {Capturing local views};}
+  \only<1>{\node[anchor=north] at (2.5,-0.85) {{\scalebox{0.7}{\RuleModule{1}{redbot/1/0}{bluebot}{}{}{View 1}}}\hspace{4pt}{\scalebox{0.7}{\RuleModule{1}{bluebot/{-1}/0}{redbot}{}{}{View 2}}}};}
+  \only<2>{\node[font=\tiny\itshape,gray!60,anchor=north] at (2.5,-0.25) {Computing next positions};}
+  \only<2>{\node[anchor=north] at (2.5,-0.85) {{\scalebox{0.7}{\RuleModule{1}{redbot/1/0}{bluebot}{right}{B}{Rule 1}}}\hspace{4pt}{\scalebox{0.7}{\RuleModule{1}{bluebot/{-1}/0}{redbot}{right}{R}{Rule 2 with 90° rotation}}}};}
+  \only<3>{\node[font=\tiny\itshape,gray!60,anchor=north] at (2.5,-0.25) {Moving to new position};}
+\end{tikzpicture}
+\end{center}
+\end{columns}
+\end{frame}
