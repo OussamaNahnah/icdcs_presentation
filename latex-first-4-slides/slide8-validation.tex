@@ -1,0 +1,37 @@
+% Slide 8: Phase 2 - Validation by Simulation
+\begin{frame}{\ModuleFrameTitle{3}{Phase 2: Validation by Simulation}}
+\begin{columns}[T,totalwidth=\textwidth]
+
+\column{0.48\textwidth}
+\textbf{Filtering Candidates}
+\vspace{0.2cm}
+\begin{itemize}\setlength\itemsep{0.3cm}
+    \item<2-> \textbf{1. Energy Filter}
+          \newline \textcolor{softgray}{\scriptsize Prioritize by movements + color changes}
+    \item<3-> \textbf{2. Minimal Grids}
+          \newline \textcolor{softgray}{\scriptsize e.g., $7\times7$ to $9\times9$ (for Visibility 1)}
+    \item<4-> \textbf{3. Cycle Detection}
+          \newline \textcolor{softgray}{\scriptsize Check for fully explored perpetual cycle}
+\end{itemize}
+
+\column{0.48\textwidth}
+\uncover<3->{
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={rectangle, draw=accent, thick, fill=accent!5, text width=3.5cm, align=center, rounded corners, font=\scriptsize\bfseries},
+    arrow/.style={->, >=Stealth, thick, accent}
+]
+    \node[box, minimum height=1cm] (g1) {Grid $7 \times 7$};
+    \node[box, below=0.3cm of g1, minimum height=1cm] (g2) {Grid $7 \times 8$};
+    \node[below=0.2cm of g2, font=\small\bfseries, text=softgray] (dots) {\dots};
+    \node[box, below=0.2cm of dots, minimum height=1cm] (g3) {Grid $9 \times 9$};
+    
+    \draw[arrow] (g1) -- (g2);
+    \draw[arrow] (g2) -- (dots);
+    \draw[arrow] (dots) -- (g3);
+\end{tikzpicture}
+\end{center}
+}
+
+\end{columns}
+\end{frame}

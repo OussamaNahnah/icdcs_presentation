@@ -1,0 +1,34 @@
+% Slide 9: Phase 3 - Mathematical Induction
+\begin{frame}{\ModuleFrameTitle{3}{Phase 3: Mathematical Induction}}
+
+\textbf{Goal:} Generalize simulation results to \textbf{any} grid size.
+
+\vspace{0.6cm}
+\begin{center}
+\begin{tikzpicture}[
+    node distance=0.6cm,
+    box/.style={rectangle, draw=accent, thick, fill=accent!5, text width=3cm, minimum height=1.2cm, align=center, rounded corners, font=\scriptsize},
+    arrow/.style={->, >=Stealth, thick, accent}
+]
+
+    % Pipeline
+    \node<2->[box] (base) {\textbf{Base Case}\\ \textcolor{softgray}{Simulated minimal grids}};
+    
+    \node<3->[box, right=of base, text width=3.8cm] (step) {\textbf{Induction Step}\\ \textcolor{softgray}{$+2$ rows or $+2$ columns}};
+    
+    \node<4->[box, right=of step] (result) {\textcolor{accent}{\textbf{Formal Guarantee}}\\ \textcolor{softgray}{Valid for any grid size}};
+
+    % Arrows
+    \draw<3->[arrow] (base) -- (step);
+    \draw<4->[arrow] (step) -- (result);
+
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.4cm}
+\begin{itemize}
+    \item[] \uncover<3->{\textbf{Why $+2$?} Grid parity dictates robot behavior.}
+    \item[] \uncover<3->{\textbf{Why it works?} Myopic robots repeat patterns far from walls.}
+\end{itemize}
+
+\end{frame}

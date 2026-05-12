@@ -1,0 +1,62 @@
+% Slide 7: Phase 1 - Scenario-Guided Synthesis
+\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Scenario-Guided Synthesis}}
+
+\textbf{The Bottleneck:} Brute-force generation explodes (e.g., ${\sim}10^{147}$ combinations).
+
+\vspace{0.4cm}
+
+\uncover<2->{
+\textbf{Our Solution: Bounded Goals}
+\vspace{0.1cm}
+\begin{itemize}\setlength\itemsep{2pt}
+    \item Define \textbf{Starting ($S$)} and \textbf{Ending ($E$)} local configurations
+    \item Restrict search space via \textbf{Bounding Box} and max \textbf{$k$ rounds}
+\end{itemize}
+}
+
+\vspace{0.4cm}
+
+% ---- Visual Goal Definition (TikZ) ---------------------------
+\begin{center}
+\uncover<3->{
+\begin{tikzpicture}[
+    robot/.style={circle, draw=black, thick, minimum size=0.5cm, inner sep=0pt, font=\scriptsize\bfseries},
+    follower/.style={robot, fill=blue!30},
+    leader/.style={robot, fill=red!40},
+    obstacle/.style={robot, fill=orange!70},
+    grid/.style={step=0.6cm, gray!40, very thin},
+    bbox/.style={draw=accent, thick, dashed, rounded corners}
+]
+
+    % Bounding Box 
+    \draw[bbox] (-0.2, -0.2) rectangle (7.4, 1.4);
+    \node[above left, font=\scriptsize, text=accent] at (7.4, 1.4) {Bounding Box};
+
+    % Left: Starting Point
+    \begin{scope}[shift={(0,0)}]
+        \draw[grid] (0,0) grid (2.4, 1.2);
+        \node[follower] at (0.3, 0.3) {F};
+        \node[leader]   at (0.9, 0.3) {L};
+        \node[obstacle] at (1.5, 0.3) {O};
+        \node[below=0.1cm, font=\footnotesize\bfseries] at (1.2, 0) {Start ($S$)};
+    \end{scope}
+
+    % Center: Synthesis Constraints
+    \draw[->, >=Stealth, thick, accent] (2.6, 0.6) -- (4.6, 0.6)
+        node[midway, above, font=\scriptsize, text=black] {Synthesize}
+        node[midway, below, font=\scriptsize, text=black] {$\le k$ rounds};
+
+    % Right: Ending Point
+    \begin{scope}[shift={(4.8,0)}]
+        \draw[grid] (0,0) grid (2.4, 1.2);
+        \node[obstacle] at (0.9, 0.3) {O};
+        \node[follower] at (1.5, 0.9) {F};
+        \node[leader]   at (2.1, 0.9) {L};
+        \node[below=0.1cm, font=\footnotesize\bfseries] at (1.2, 0) {End ($E$)};
+    \end{scope}
+
+\end{tikzpicture}
+}
+\end{center}
+
+\end{frame}

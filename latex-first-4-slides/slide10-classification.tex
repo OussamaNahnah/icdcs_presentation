@@ -1,0 +1,31 @@
+% Slide 10: Phase 4 - Automated Classification
+\begin{frame}{\ModuleFrameTitle{3}{Phase 4: Automated Classification}}
+\begin{columns}[T,totalwidth=\textwidth]
+
+\column{0.48\textwidth}
+\textbf{Equivalence Criteria}
+\vspace{0.2cm}
+\begin{itemize}\setlength\itemsep{0.3cm}
+    \item<2-> \textbf{C1: Rules} (Syntax)
+    \item<3-> \textbf{C2: Rounds} (Time)
+    \item<4-> \textbf{C3: Energy} (Cost)
+    \item<5-> \textbf{C4: Path} (Space)
+\end{itemize}
+
+\column{0.48\textwidth}
+\uncover<6->{
+\textbf{Outcome Example ($A_2$)}
+\vspace{0.2cm}
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={rectangle, draw=black, thick, text width=4cm, align=left, rounded corners, font=\scriptsize},
+]
+    \node[box, fill=blue!10, draw=blue] (standard) {\textbf{Standard Algorithms:}\\Bypass obstacle and maintain original row/col direction.};
+    
+    \node[box, fill=orange!10, draw=orange, below=0.4cm of standard] (deviant) {\textbf{Deviant Algorithms:}\\Bypass obstacle and \textit{shift} exploration axis (e.g., horizontal $\to$ vertical).};
+\end{tikzpicture}
+\end{center}
+}
+
+\end{columns}
+\end{frame}

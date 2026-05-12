@@ -1,0 +1,55 @@
+% Slide 6: Overview of Our Methodology
+\begin{frame}{\ModuleFrameTitle{3}{Overview of Our Methodology}}
+\begin{columns}[T,totalwidth=\textwidth]
+
+% ---- Left column: Problem & Context ----------------------------------
+\column{0.44\textwidth}
+
+\vspace{0.1cm}
+\begin{itemize}\setlength\itemsep{2pt}
+  \item \textbf{Task:} Perpetual exploration with an \textcolor{accent}{\textbf{obstacle}}
+  \item \textbf{Model:} Luminous, myopic, common chirality, LCM cycles
+\end{itemize}
+
+\vspace{0.6cm}
+\uncover<2->{
+\vspace{0.1cm}
+\begin{itemize}\setlength\itemsep{2pt}
+  \item \textbf{Strategy:} \textbf{Extend} an existing algorithm
+\end{itemize}
+}
+
+% ---- Right column: TikZ Pipeline (Progressive Reveal) ----------------
+\column{0.52\textwidth}
+
+\vspace{0.1cm}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=0.4cm,
+    box/.style={rectangle, draw=accent, thick, fill=accent!5, text width=4.8cm, align=center, rounded corners, inner sep=1ex, font=\scriptsize},
+    arrow/.style={->, >=Stealth, thick, accent}
+]
+
+    % Step 1: Synthesis
+    \node<3->[box] (step1) {\textbf{1. Scenario-Guided Synthesis}};
+    
+    % Step 2: Validation
+    \node<4->[box, below=of step1] (step2) {\textbf{2. Validation by Simulation}};
+    
+    % Step 3: Induction
+    \node<5->[box, below=of step2] (step3) {\textbf{3. Mathematical Induction}};
+    
+    % Step 4: Classification
+    \node<6->[box, below=of step3] (step4) {\textbf{4. Automated Classification}};
+
+    % Arrows
+    \draw<4->[arrow] (step1) -- (step2);
+    \draw<5->[arrow] (step2) -- (step3);
+    \draw<6->[arrow] (step3) -- (step4);
+
+\end{tikzpicture}
+\end{center}
+
+\end{columns}
+\end{frame}
