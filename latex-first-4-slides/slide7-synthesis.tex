@@ -1,24 +1,14 @@
-% Slide 7: Phase 1 - Scenario-Guided Synthesis
-\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Scenario-Guided Synthesis}}
+% =====================================================================
+% PHASE 1: SYNTHESIS
+% =====================================================================
 
-\textbf{The Bottleneck:} Brute-force generation explodes (e.g., ${\sim}10^{147}$ combinations).
+% Slide 7: Phase 1 - Definition
+\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Scenario-Guided Synthesis (Concept)}}
 
-\vspace{0.4cm}
-
-\uncover<2->{
-\textbf{Our Solution: Bounded Goals}
-\vspace{0.1cm}
-\begin{itemize}\setlength\itemsep{2pt}
-    \item Define \textbf{Starting ($S$)} and \textbf{Ending ($E$)} local configurations
-    \item Restrict search space via \textbf{Bounding Box} and max \textbf{$k$ rounds}
-\end{itemize}
-}
+\textbf{Goal Definition:} Safely bypass the obstacle avoiding combinatorial explosion.
 
 \vspace{0.4cm}
-
-% ---- Visual Goal Definition (TikZ) ---------------------------
 \begin{center}
-\uncover<3->{
 \begin{tikzpicture}[
     robot/.style={circle, draw=black, thick, minimum size=0.5cm, inner sep=0pt, font=\scriptsize\bfseries},
     follower/.style={robot, fill=blue!30},
@@ -27,7 +17,6 @@
     grid/.style={step=0.6cm, gray!40, very thin},
     bbox/.style={draw=accent, thick, dashed, rounded corners}
 ]
-
     % Bounding Box 
     \draw[bbox] (-0.2, -0.2) rectangle (7.4, 1.4);
     \node[above left, font=\scriptsize, text=accent] at (7.4, 1.4) {Bounding Box};
@@ -43,7 +32,7 @@
 
     % Center: Synthesis Constraints
     \draw[->, >=Stealth, thick, accent] (2.6, 0.6) -- (4.6, 0.6)
-        node[midway, above, font=\scriptsize, text=black] {Synthesize}
+        node[midway, above, font=\scriptsize, text=black] {Synthesize rules}
         node[midway, below, font=\scriptsize, text=black] {$\le k$ rounds};
 
     % Right: Ending Point
@@ -54,9 +43,35 @@
         \node[leader]   at (2.1, 0.9) {L};
         \node[below=0.1cm, font=\footnotesize\bfseries] at (1.2, 0) {End ($E$)};
     \end{scope}
-
 \end{tikzpicture}
-}
 \end{center}
 
+\end{frame}
+
+% Slide 8: Phase 1 - Algo 1 Results
+\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Synthesis Results (Algorithm 1)}}
+\begin{columns}[T,totalwidth=\textwidth]
+
+\column{0.48\textwidth}
+\textbf{Case Study: Algorithm 1 ($A_1^b$)}
+\vspace{0.2cm}
+\begin{itemize}\setlength\itemsep{0.3cm}
+    \item \textbf{Robots:} 2 (Leader + Follower)
+    \item \textbf{Colors:} 3 ($L, R, F$)
+    \item \textbf{Visibility:} Range 1
+    \item \textbf{Scenario:} 8 bounded goals
+\end{itemize}
+
+\column{0.48\textwidth}
+\uncover<2->{
+\textbf{Combinatorial Reduction}
+\vspace{0.2cm}
+\begin{itemize}\setlength\itemsep{0.3cm}
+    \item \textbf{Pre-computation:} 490 possible rules generated from 35 views
+    \item \textbf{Combinations:} $2,016$ naive rule combinations for the 8 goals
+    \item \textcolor{accent}{\textbf{Output:}} \textbf{5 valid algorithms} synthesized in $\sim$2 seconds
+\end{itemize}
+}
+
+\end{columns}
 \end{frame}

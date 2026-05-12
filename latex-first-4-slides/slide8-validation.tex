@@ -1,37 +1,50 @@
-% Slide 8: Phase 2 - Validation by Simulation
-\begin{frame}{\ModuleFrameTitle{3}{Phase 2: Validation by Simulation}}
-\begin{columns}[T,totalwidth=\textwidth]
+% =====================================================================
+% PHASE 2: VALIDATION
+% =====================================================================
 
-\column{0.48\textwidth}
-\textbf{Filtering Candidates}
-\vspace{0.2cm}
-\begin{itemize}\setlength\itemsep{0.3cm}
-    \item<2-> \textbf{1. Energy Filter}
-          \newline \textcolor{softgray}{\scriptsize Prioritize by movements + color changes}
-    \item<3-> \textbf{2. Minimal Grids}
-          \newline \textcolor{softgray}{\scriptsize e.g., $7\times7$ to $9\times9$ (for Visibility 1)}
-    \item<4-> \textbf{3. Cycle Detection}
-          \newline \textcolor{softgray}{\scriptsize Check for fully explored perpetual cycle}
-\end{itemize}
+% Slide 9: Phase 2 - Definition
+\begin{frame}{\ModuleFrameTitle{3}{Phase 2: Validation by Simulation (Concept)}}
 
-\column{0.48\textwidth}
-\uncover<3->{
+\textbf{Method:} Filter and verify global perpetual exploration.
+
+\vspace{0.6cm}
 \begin{center}
 \begin{tikzpicture}[
-    box/.style={rectangle, draw=accent, thick, fill=accent!5, text width=3.5cm, align=center, rounded corners, font=\scriptsize\bfseries},
+    node distance=0.6cm,
+    box/.style={rectangle, draw=accent, thick, fill=accent!5, text width=3.2cm, minimum height=1.2cm, align=center, rounded corners, font=\scriptsize\bfseries},
     arrow/.style={->, >=Stealth, thick, accent}
 ]
-    \node[box, minimum height=1cm] (g1) {Grid $7 \times 7$};
-    \node[box, below=0.3cm of g1, minimum height=1cm] (g2) {Grid $7 \times 8$};
-    \node[below=0.2cm of g2, font=\small\bfseries, text=softgray] (dots) {\dots};
-    \node[box, below=0.2cm of dots, minimum height=1cm] (g3) {Grid $9 \times 9$};
-    
-    \draw[arrow] (g1) -- (g2);
-    \draw[arrow] (g2) -- (dots);
-    \draw[arrow] (dots) -- (g3);
+    \node[box] (filter) {1. Energy Filter\\ \normalfont\scriptsize(Sort by efficiency)};
+    \node[box, right=of filter] (grids) {2. Minimal Grids\\ \normalfont\scriptsize(Test all hole positions)};
+    \node[box, right=of grids] (cycle) {3. Cycle Detection\\ \normalfont\scriptsize(Verify full exploration)};
+
+    \draw[arrow] (filter) -- (grids);
+    \draw[arrow] (grids) -- (cycle);
 \end{tikzpicture}
 \end{center}
+
+\end{frame}
+
+% Slide 10: Phase 2 - Algo 1 Results
+\begin{frame}{\ModuleFrameTitle{3}{Phase 2: Validation Results (Algorithm 1)}}
+
+\textbf{Simulation Parameters ($A_1$)}
+\vspace{0.2cm}
+\begin{itemize}\setlength\itemsep{0.2cm}
+    \item \textbf{Grids tested:} $7 \times 7$ up to $9 \times 9$
+    \item \textbf{Initial configurations:} 12 (hole in sight)
+    \item \textbf{Total tests:} 324 simulations per candidate
+\end{itemize}
+
+\vspace{0.6cm}
+\uncover<2->{
+\textbf{Outcomes ($A_1$)}
+\vspace{0.2cm}
+\begin{itemize}\setlength\itemsep{0.2cm}
+    \item \textbf{Tested:} 5 candidate algorithms across 4 energy levels
+    \item \textcolor{accent}{\textbf{Result:}} \textbf{5 / 5 algorithms successfully validated}
+    \item \textbf{Time:} 0.8 seconds total
+\end{itemize}
 }
 
-\end{columns}
 \end{frame}

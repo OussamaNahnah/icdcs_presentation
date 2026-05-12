@@ -1,0 +1,33 @@
+% Requires \usepackage{booktabs}, \usepackage{graphicx}, and \usepackage{hyperref} in your preamble
+
+% Slide 11: Comprehensive Experimental Results
+\begin{frame}{\ModuleFrameTitle{4}{Comprehensive Experimental Results}}
+\begin{center}
+\resizebox{\textwidth}{!}{
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}cllllc@{}}
+\toprule
+\textbf{Exec.} & \textbf{Base Algo} & \textbf{Scenario Variation} & \textbf{Candidates} & \textbf{Synthesis Time} & \textbf{Valid} \\
+\midrule
+\textbf{1} & $A_1^b$ \textcolor{softgray}{\scriptsize (Vis. 1)} & Standard Pole (8 goals) & 5 & $\sim$2 seconds & \textcolor{accent}{\textbf{5}} \\
+\textbf{2} & $A_1^b$ & Goal 8 relaxed \textcolor{softgray}{\scriptsize (+1 allowed round)} & 15 & $\sim$2 seconds & \textcolor{accent}{\textbf{15}} \\
+\textbf{10} & $A_1^b$ & Obstacle is a Hole \textcolor{softgray}{\scriptsize (see-through)} & 5 & $\sim$2 seconds & \textcolor{accent}{\textbf{5}} \\
+\textbf{9} & $A_1^b$ & Goal 6 strict \textcolor{softgray}{\scriptsize (Forced wrong color)} & 5 & $\sim$2 seconds & \textcolor{red}{\textbf{0}} \\
+\midrule
+\textbf{3} & $A_2^b$ \textcolor{softgray}{\scriptsize (Vis. 2)} & Standard Pole (11 goals) & 373,248 & $\sim$1 minute & \textcolor{accent}{\textbf{115}} \\
+\textbf{4} & $A_2^b$ & Standard goals, different combination order & 373,248 & 5 minutes & \textcolor{accent}{\textbf{115}} \\
+\textbf{5} & $A_2^b$ & Obstacle is a Hole \textcolor{softgray}{\scriptsize (see-through)} & 373,248 & $\sim$1 minute & \textcolor{accent}{\textbf{115}} \\
+\textbf{6} & $A_2^b$ & Goal 11 modified \textcolor{softgray}{\scriptsize (Color exchange)} & 373,248 & 23 minutes & \textcolor{accent}{\textbf{85}} \\
+\textbf{7} & $A_2^b$ & Goal 9 relaxed \textcolor{softgray}{\scriptsize (Wider bypass distance)} & 117,407,808 & 3 hours 7 min & \textcolor{accent}{\textbf{475}} \\
+\textbf{8} & $A_2^b$ & Combined modifications \textcolor{softgray}{\scriptsize (Goals 9 \& 11)} & 117,407,808 & 2 hours 37 min & \textcolor{accent}{\textbf{181}} \\
+\bottomrule
+\end{tabular}
+}
+\end{center}
+
+\vspace{0.4cm}
+\begin{itemize}\setlength\itemsep{0.15cm}
+   \item \textbf{Full Data:} \href{https://luminousrobots.github.io/RoASt-Docs/pages/executions.html}{\footnotesize\textcolor{accent}{\url{https://luminousrobots.github.io/RoASt-Docs/pages/executions.html}}}
+\end{itemize}
+
+\end{frame}

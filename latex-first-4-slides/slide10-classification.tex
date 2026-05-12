@@ -1,31 +1,45 @@
-% Slide 10: Phase 4 - Automated Classification
-\begin{frame}{\ModuleFrameTitle{3}{Phase 4: Automated Classification}}
-\begin{columns}[T,totalwidth=\textwidth]
+% =====================================================================
+% PHASE 4: CLASSIFICATION
+% =====================================================================
 
-\column{0.48\textwidth}
-\textbf{Equivalence Criteria}
-\vspace{0.2cm}
-\begin{itemize}\setlength\itemsep{0.3cm}
-    \item<2-> \textbf{C1: Rules} (Syntax)
-    \item<3-> \textbf{C2: Rounds} (Time)
-    \item<4-> \textbf{C3: Energy} (Cost)
-    \item<5-> \textbf{C4: Path} (Space)
+% Slide 13: Phase 4 - Definition
+\begin{frame}{\ModuleFrameTitle{3}{Phase 4: Automated Classification (Concept)}}
+
+\textbf{Goal:} Group generated algorithms into behavioral equivalence classes.
+
+\vspace{0.4cm}
+\begin{itemize}\setlength\itemsep{0.4cm}
+    \item \textbf{C1: Rules} \textcolor{softgray}{\scriptsize (Syntactic comparison of rule sets)}
+    \item \textbf{C2: Rounds} \textcolor{softgray}{\scriptsize (Time to complete one full exploration cycle)}
+    \item \textbf{C3: Energy} \textcolor{softgray}{\scriptsize (Total movements + color changes per cycle)}
+    \item \textbf{C4: Path} \textcolor{softgray}{\scriptsize (Physical trajectory on the grid)}
 \end{itemize}
 
-\column{0.48\textwidth}
-\uncover<6->{
-\textbf{Outcome Example ($A_2$)}
-\vspace{0.2cm}
+\end{frame}
+
+% Slide 14: Phase 4 - Algo 1 Results
+\begin{frame}{\ModuleFrameTitle{3}{Phase 4: Classification Results (Algorithm 1)}}
+
+\textbf{Classifying the 5 Validated Algorithms ($A_1$)}
+
+\vspace{0.6cm}
 \begin{center}
-\begin{tikzpicture}[
-    box/.style={rectangle, draw=black, thick, text width=4cm, align=left, rounded corners, font=\scriptsize},
-]
-    \node[box, fill=blue!10, draw=blue] (standard) {\textbf{Standard Algorithms:}\\Bypass obstacle and maintain original row/col direction.};
-    
-    \node[box, fill=orange!10, draw=orange, below=0.4cm of standard] (deviant) {\textbf{Deviant Algorithms:}\\Bypass obstacle and \textit{shift} exploration axis (e.g., horizontal $\to$ vertical).};
-\end{tikzpicture}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{ll}
+\toprule
+\textbf{Equivalence Criterion} & \textbf{Outcome} \\
+\midrule
+\textbf{C1: Number of Rules}  & 3 Classes \textcolor{softgray}{\scriptsize (Two classes of 2, One class of 1)} \\
+\textbf{C2: Rounds in Cycle}  & 1 Class \textcolor{softgray}{\scriptsize (All 5 algorithms have identical time cost)} \\
+\textbf{C3: Energy in Cycle}  & 5 Classes \textcolor{softgray}{\scriptsize (Every algorithm has unique energy cost)} \\
+\textbf{C4: Paths in Cycle}   & 3 Classes \textcolor{softgray}{\scriptsize (Slight variations in local trajectories)} \\
+\bottomrule
+\end{tabular}
 \end{center}
+
+\vspace{0.4cm}
+\uncover<2->{
+$\rightarrow$ \textbf{Takeaway:} The tool found 5 strictly distinct behavioral solutions to bypass the obstacle.
 }
 
-\end{columns}
 \end{frame}

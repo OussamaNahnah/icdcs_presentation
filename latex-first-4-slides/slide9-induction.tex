@@ -1,34 +1,50 @@
-% Slide 9: Phase 3 - Mathematical Induction
-\begin{frame}{\ModuleFrameTitle{3}{Phase 3: Mathematical Induction}}
+% =====================================================================
+% PHASE 3: INDUCTION
+% =====================================================================
 
-\textbf{Goal:} Generalize simulation results to \textbf{any} grid size.
+% Slide 11: Phase 3 - Definition
+\begin{frame}{\ModuleFrameTitle{3}{Phase 3: Mathematical Induction (Concept)}}
+
+\textbf{Goal:} Overcome finite simulation limits to guarantee infinite scale.
 
 \vspace{0.6cm}
 \begin{center}
 \begin{tikzpicture}[
-    node distance=0.6cm,
-    box/.style={rectangle, draw=accent, thick, fill=accent!5, text width=3cm, minimum height=1.2cm, align=center, rounded corners, font=\scriptsize},
+    node distance=0.8cm,
+    box/.style={rectangle, draw=accent, thick, fill=accent!5, text width=3.5cm, minimum height=1.2cm, align=center, rounded corners, font=\scriptsize},
     arrow/.style={->, >=Stealth, thick, accent}
 ]
+    \node[box] (base) {\textbf{Base Case}\\ \textcolor{softgray}{Simulated minimal grids}};
+    \node[box, right=of base] (step) {\textbf{Induction Step}\\ \textcolor{softgray}{$+2$ rows or $+2$ columns}};
+    \node[box, right=of step] (result) {\textcolor{accent}{\textbf{Formal Guarantee}}\\ \textcolor{softgray}{Valid for any larger grid}};
 
-    % Pipeline
-    \node<2->[box] (base) {\textbf{Base Case}\\ \textcolor{softgray}{Simulated minimal grids}};
-    
-    \node<3->[box, right=of base, text width=3.8cm] (step) {\textbf{Induction Step}\\ \textcolor{softgray}{$+2$ rows or $+2$ columns}};
-    
-    \node<4->[box, right=of step] (result) {\textcolor{accent}{\textbf{Formal Guarantee}}\\ \textcolor{softgray}{Valid for any grid size}};
-
-    % Arrows
-    \draw<3->[arrow] (base) -- (step);
-    \draw<4->[arrow] (step) -- (result);
-
+    \draw[arrow] (base) -- (step);
+    \draw[arrow] (step) -- (result);
 \end{tikzpicture}
 \end{center}
 
 \vspace{0.4cm}
 \begin{itemize}
-    \item[] \uncover<3->{\textbf{Why $+2$?} Grid parity dictates robot behavior.}
-    \item[] \uncover<3->{\textbf{Why it works?} Myopic robots repeat patterns far from walls.}
+    \item[] \uncover<2->{\textbf{Why $+2$?} Grid parity dictates robot behavior.}
+    \item[] \uncover<2->{\textbf{Why it works?} Myopic robots repeat patterns far from walls.}
+\end{itemize}
+
+\end{frame}
+
+% Slide 12: Phase 3 - Algo 1 Results
+\begin{frame}{\ModuleFrameTitle{3}{Phase 3: Induction Results (Algorithm 1)}}
+
+\textbf{Formal Proof Guarantees ($A_1$)}
+\vspace{0.4cm}
+\begin{itemize}\setlength\itemsep{0.4cm}
+    \item<1-> \textbf{Proof Obligation 1 (Initial States):}
+          \newline \textcolor{softgray}{\small Generalizes 12 simulated configurations to \textbf{any} locally-defined state.}
+          
+    \item<2-> \textbf{Proof Obligation 2 (Grid Size):}
+          \newline \textcolor{softgray}{\small Base size $size_1 = 7$. Guaranteed valid for \textbf{any} grid $C \ge 7, L \ge 7$.}
+          
+    \item<3-> \textcolor{accent}{\textbf{Final Theorem:}} 
+          \newline \textcolor{softgray}{\small All 5 algorithms mathematically proven to perform perpetual exploration.}
 \end{itemize}
 
 \end{frame}
