@@ -1,0 +1,41 @@
+% Robot Grid Module for Initial Configurations
+% Define colors to match the UI
+\definecolor{colorL}{HTML}{FF0000} % Red
+\definecolor{colorR}{HTML}{008000} % Green
+\definecolor{colorF}{HTML}{0000FF} % Blue
+\definecolor{colorO}{HTML}{FFA500} % Orange
+\definecolor{visRange}{HTML}{87CEEB} % Sky Blue
+\definecolor{gridGray}{HTML}{E8E8E8}
+\definecolor{leaderRed}{HTML}{DC3545}
+
+% Module for drawing a single configuration
+% Usage: \robotgrid{Title}{List of objects}{isLeader}
+% Objects format: type/x/y (e.g., O/0/0, R/1/1)
+\newcommand{\robotgrid}[3]{
+    \begin{tikzpicture}[scale=0.45]
+
+        % Grid Title
+        \node[font=\tiny\bfseries] at (0, 3) {Config #1 \ifnum#3=1 \textcolor{leaderRed}{*} \fi};
+
+        % Draw Grid Lines
+        \draw[step=1, gridGray, thin] (-2,-2) grid (2,2);
+
+        % Coordinate Labels
+        \foreach \x in {-2,-1,0,1,2} {
+            \node[font=\tiny, text=gray] at (\x, -2.4) {\x};
+            \node[font=\tiny, text=gray] at (-2.4, \x) {\x};
+        }
+
+        % Visibility Range (Diamond shape for robots)
+        \foreach \type/\x/\y in {#2} {
+            \if\type O \else
+                \draw[visRange, dashed, thick] (\x, \y+1) -- (\x+1, \y) -- (\x, \y-1) -- (\x-1, \y) -- cycle;
+            \fi
+        }
+
+        % Draw Robots and Obstacles
+        \foreach \type/\x/\y in {#2} {
+            \node[circle, fill=color\type, draw=black, inner sep=1pt, minimum size=10pt, font=\tiny\bfseries, text=white] at (\x, \y) {\type};
+        }
+    \end{tikzpicture}
+}

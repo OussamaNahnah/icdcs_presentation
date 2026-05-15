@@ -1,0 +1,69 @@
+% Goal Module for drawing grid scenarios
+% Required packages (should be in main.tex preamble):
+% \usepackage{xparse}
+% \usepackage{tikz}
+% \usetikzlibrary{positioning}
+% \usepackage{xstring}
+
+% Color definitions (if not already defined)
+\definecolor{colorF}{HTML}{3B82F6} % blue!45 approx
+\definecolor{colorL}{HTML}{EF4444} % red!60 approx
+\definecolor{colorR}{HTML}{22C55E} % Green!60
+\definecolor{colorO}{HTML}{F97316} % orange!90
+
+% The macro definition
+\NewDocumentCommand{\drawGridWithHighlightsAndBox}{mmmmmmm}{
+    \begin{tikzpicture}
+        \def\nodesize{0.4cm}
+        \def\spacing{0.6cm}
+
+        \pgfmathsetmacro{\maxX}{int(#1)}
+        \pgfmathsetmacro{\maxY}{int(#2)}
+
+        % Define coordinates
+        \foreach \x in {0,...,\maxX} {
+            \foreach \y in {0,...,\maxY} {
+                \coordinate (n\x\y) at (\x*\spacing, \y*\spacing);
+            }
+        }
+
+        % Draw grid lines
+        \foreach \x in {0,...,\numexpr\maxX-1} {
+            \foreach \y in {0,...,\maxY} {
+                \pgfmathtruncatemacro{\xp}{\x+1}
+                \draw[gray!40, thin] (n\x\y) -- (n\xp\y);
+            }
+        }
+        \foreach \x in {0,...,\maxX} {
+            \foreach \y in {0,...,\numexpr\maxY-1} {
+                \pgfmathtruncatemacro{\yp}{\y+1}
+                \draw[gray!40, thin] (n\x\y) -- (n\x\yp);
+            }
+        }
+
+        % Draw default nodes (background circles)
+        \foreach \x in {0,...,\maxX} {
+            \foreach \y in {0,...,\maxY} {
+                \node[circle, draw=gray!20, thin, fill=white, minimum size=\nodesize, inner sep=0pt]
+                    at (n\x\y) {};
+            }
+        }
+
+        % Highlighted nodes with optional labels
+        % Format: color/x/y/label
+        \foreach \entry in {#3} {
+            \StrCut{\entry}{/}{\color}{\rest}
+            \StrCut{\rest}{/}{\xval}{\rest}
+            \StrCut{\rest}{/}{\yval}{\label}
+            \IfStrEq{\label}{}{\edef\labelText{}}{\edef\labelText{\label}}
+            \node[circle, draw=black, thick, fill=\color, minimum size=\nodesize, inner sep=0pt, font=\tiny\bfseries]
+                at (n\xval\yval) {\labelText};
+        }
+
+        % Draw bounding box
+        \draw[thick, accent, dashed, rounded corners=2pt]
+            ([shift={(-0.35cm,-0.35cm)}]n#4#5)
+            rectangle
+            ([shift={(0.35cm,0.35cm)}]n#6#7);
+    \end{tikzpicture}
+}

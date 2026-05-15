@@ -1,0 +1,48 @@
+% Slide 7: Phase 1 - Chronological Synthesis Workflow
+\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Candidate Generation Workflow}}
+
+\vspace{0.8cm}
+\begin{columns}[T,totalwidth=\textwidth]
+\column{0.45\textwidth}
+    \begin{itemize}\setlength\itemsep{0.7cm}
+        \item<2-> \textbf{1. Scenario}\\ \textcolor{softgray}{\small Goals, bounding box, and max rounds $k$}
+        \item<3-> \textbf{2. Pre-compute}\\ \textcolor{softgray}{\small Generation of all views and rules}
+        \item<4-> \textbf{3. Rule Sets ($R_i$)}\\ \textcolor{softgray}{\small Path synthesis per goal $i$}
+        \item<5-> \textbf{4. Combine}\\ \textcolor{softgray}{\small Iterative merge and conflict filtering}
+    \end{itemize}
+
+\column{0.55\textwidth}
+    \begin{center}
+    \only<2>{
+        \vspace{0.5cm}
+        \textbf{Example: Goal $g_6$}\\
+        \vspace{0.4cm}
+        \begin{minipage}{0.48\linewidth}
+            \centering
+            \resizebox{\linewidth}{!}{\drawGridWithHighlightsAndBox{6}{3}{colorO/3/1/O, colorL/2/1/L, colorF/1/1/F}{1}{1}{5}{2}}\\
+            \textcolor{softgray}{\tiny Start}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.48\linewidth}
+            \centering
+            \resizebox{\linewidth}{!}{\drawGridWithHighlightsAndBox{6}{3}{colorO/3/1/O, colorL/5/2/L, colorF/4/2/F}{1}{1}{5}{2}}\\
+            \textcolor{softgray}{\tiny End}
+        \end{minipage}
+    }
+    \only<3-5>{
+        \vspace{1.5cm}
+        \begin{tikzpicture}
+            \node[draw=accent, dashed, rounded corners, inner sep=15pt, fill=accent!2] {
+                \begin{minipage}{4.5cm}
+                    \centering
+                    \textcolor{accent}{\textbf{Tool Engine Automation}}\\
+                    \vspace{0.2cm}
+                    \small Eliminating manual rule writing and conflict checking.
+                \end{minipage}
+            };
+        \end{tikzpicture}
+    }
+    \end{center}
+\end{columns}
+
+\end{frame}

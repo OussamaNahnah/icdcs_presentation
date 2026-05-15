@@ -1,0 +1,21 @@
+\begin{tikzpicture}[>=Stealth, scale=0.8]
+    % Clean Grid (8x7)
+    \foreach \x in {0,...,8} \draw[densely dashed, gray!40] (\x,0) -- (\x,8);
+    \foreach \y in {0,...,8} \draw[densely dashed, gray!40] (0,\y) -- (8,\y);
+
+    % Central Elements (Symmetrical configuration)
+    \filldraw[yellow!90!orange, draw=black, thick] (4,4) circle (0.18) node[black, font=\tiny\bfseries] {O};
+    %\filldraw[bluebot, draw=black, thick] (3,3) circle (0.18) node[white, font=\tiny\bfseries] {B};
+    %\filldraw[redbot, draw=black, thick] (5,3) circle (0.18) node[white, font=\tiny\bfseries] {R};
+
+    % Edge Dots (Large Boundary)
+    \foreach \x in {0,8} \foreach \y in {0,...,8} \filldraw[black] (\x,\y) circle (0.18);
+    \foreach \y in {0,8} \foreach \x in {1,...,7} \filldraw[black] (\x,\y) circle (0.18);
+
+    % Zig-zag Movement Path (Stops one step below obstacle)
+    \draw[->, accent, thick, line cap=round, line join=round, opacity=0.8] 
+        (1,1) -- (7,1) -- (7,2) -- (1,2) -- (1,3) -- (4,3);
+
+    % Labels (Optional)
+    %\node[accent, font=\scriptsize\bfseries, anchor=north] at (4, -0.4) {Multi-Robot Bounded Arena};
+\end{tikzpicture}

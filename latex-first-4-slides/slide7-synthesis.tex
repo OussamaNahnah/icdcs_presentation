@@ -2,76 +2,176 @@
 % PHASE 1: SYNTHESIS
 % =====================================================================
 
-% Slide 7: Phase 1 - Definition
-\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Scenario-Guided Synthesis (Concept)}}
+% Slide 7: Phase 1 - Chronological Synthesis Workflow
+\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Generate candidate algorithms}}
+\begin{columns}[T,totalwidth=\textwidth]
+\column{0.45\textwidth}
+    \begin{itemize}\setlength\itemsep{0.7cm}
+        \item<1-> \textbf{1. Define goals, bounding box, and rounds $k$}
+        \item<2-> \textbf{2. Generate all possible views and rules}
+        \item<3-> \textbf{3. Compute Rule Sets ($R_i$) for each goal $i$}
+        \item<4-> \textbf{4. Combine and filter candidate algorithms}
+    \end{itemize}
 
-\textbf{Goal Definition:} Safely bypass the obstacle avoiding combinatorial explosion.
+\column{0.55\textwidth}
+    \begin{center}
+    \only<1>{
+        \vspace{0.4cm}
+        \begin{center}
+            \vspace{0.8cm}
+            \begin{minipage}{0.45\linewidth}
+                \centering
+                \resizebox{\linewidth}{!}{\drawGridWithHighlightsAndBox{6}{3}{colorO/3/1/O, colorL/2/1/L, colorF/1/1/F}{1}{1}{5}{2}}\\
+                \vspace{0.1cm}
+                \textcolor{accent}{\fontsize{5}{6}\selectfont\bfseries Start State}
+            \end{minipage}
+            \hfill
+            \begin{minipage}{0.45\linewidth}
+                \centering
+                \resizebox{\linewidth}{!}{\drawGridWithHighlightsAndBox{6}{3}{colorO/3/1/O, colorL/5/2/L, colorF/4/2/F}{1}{1}{5}{2}}\\
+                \vspace{0.1cm}
+                \textcolor{accent}{\fontsize{5}{6}\selectfont\bfseries Target State}
+            \end{minipage}
+        \end{center}
+    }
+    \only<2>{
+        \vspace{0.2cm}
+        \begin{center}
+        \begin{tikzpicture}
+            
+            % A "pile" of rule cards - shifted left for better right padding
+            \foreach \i in {1,...,15} {
+                \draw[draw=accent!40, fill=white, rounded corners=1.5pt, drop shadow={opacity=0.05}] (\i*0.25 - 0.8, \i*0.04) rectangle ++(1.4, 2.0);
+            }
+            \draw[draw=accent, fill=white, rounded corners=1.5pt, thick] (16*0.25 - 0.8, 16*0.04) rectangle ++(1.4, 2.0);
+            \node at (16*0.25+0.7 - 0.8, 16*0.04+1.05) {\scalebox{0.65}{\RuleModule{1}{redbot/1/0}{bluebot}{right}{B}{Rule 490}}};
+            \node[anchor=north, accent, font=\fontsize{5}{6}\selectfont\bfseries] at (2.2, 0.1) {Total: 490+ Rules Generated};
+        \end{tikzpicture}
+        \end{center}
+    }
+    \only<3>{
+        \vspace{0.4cm}
+        \begin{center}
+        \begin{tikzpicture}[rulebox/.style={draw=accent, fill=white, rounded corners=2pt, font=\fontsize{5}{6}\selectfont\bfseries, minimum width=0.8cm, minimum height=0.45cm}]
+            % Suite 1
+            \node[rulebox] (s1r1) {R80};
+            \node[rulebox, right=0.25cm of s1r1] (s1r2) {R99};
+            \node[rulebox, right=0.25cm of s1r2] (s1r3) {R1};
+            \node[rulebox, right=0.25cm of s1r3] (s1r4) {R5};
+            \draw[->, accent!50] (s1r1) -- (s1r2); \draw[->, accent!50] (s1r2) -- (s1r3); \draw[->, accent!50] (s1r3) -- (s1r4);
+            \node[left=0.15cm of s1r1, accent, font=\fontsize{5}{6}\selectfont\bfseries] {Sub-sol 1:};
 
-\vspace{0.4cm}
-\begin{center}
-\begin{tikzpicture}[
-    robot/.style={circle, draw=black, thick, minimum size=0.5cm, inner sep=0pt, font=\scriptsize\bfseries},
-    follower/.style={robot, fill=blue!30},
-    leader/.style={robot, fill=red!40},
-    obstacle/.style={robot, fill=orange!70},
-    grid/.style={step=0.6cm, gray!40, very thin},
-    bbox/.style={draw=accent, thick, dashed, rounded corners}
-]
-    % Bounding Box 
-    \draw[bbox] (-0.2, -0.2) rectangle (7.4, 1.4);
-    \node[above left, font=\scriptsize, text=accent] at (7.4, 1.4) {Bounding Box};
+            % Suite 2
+            \node[rulebox, below=0.35cm of s1r1] (s2r1) {R12};
+            \node[rulebox, right=0.25cm of s2r1] (s2r2) {R45};
+            \node[rulebox, right=0.25cm of s2r2] (s2r3) {R3};
+            \draw[->, accent!50] (s2r1) -- (s2r2); \draw[->, accent!50] (s2r2) -- (s2r3);
+            \node[left=0.15cm of s2r1, accent, font=\fontsize{5}{6}\selectfont\bfseries] {Sub-sol 2:};
 
-    % Left: Starting Point
-    \begin{scope}[shift={(0,0)}]
-        \draw[grid] (0,0) grid (2.4, 1.2);
-        \node[follower] at (0.3, 0.3) {F};
-        \node[leader]   at (0.9, 0.3) {L};
-        \node[obstacle] at (1.5, 0.3) {O};
-        \node[below=0.1cm, font=\footnotesize\bfseries] at (1.2, 0) {Start ($S$)};
-    \end{scope}
+            % Suite 3
+            \node[rulebox, below=0.35cm of s2r1] (s3r1) {R110};
+            \node[rulebox, right=0.25cm of s3r1] (s3r2) {R22};
+            \node[rulebox, right=0.25cm of s3r2] (s3r3) {R4};
+            \node[rulebox, right=0.25cm of s3r3] (s3r4) {R31};
+            \draw[->, accent!50] (s3r1) -- (s3r2); \draw[->, accent!50] (s3r2) -- (s3r3); \draw[->, accent!50] (s3r3) -- (s3r4);
+            \node[left=0.15cm of s3r1, accent, font=\fontsize{5}{6}\selectfont\bfseries] {Sub-sol 3:};
 
-    % Center: Synthesis Constraints
-    \draw[->, >=Stealth, thick, accent] (2.6, 0.6) -- (4.6, 0.6)
-        node[midway, above, font=\scriptsize, text=black] {Synthesize rules}
-        node[midway, below, font=\scriptsize, text=black] {$\le k$ rounds};
+            % Suite 4
+            \node[rulebox, below=0.35cm of s3r1] (s4r1) {R201};
+            \node[rulebox, right=0.25cm of s4r1] (s4r2) {R8};
+            \draw[->, accent!50] (s4r1) -- (s4r2);
+            \node[left=0.15cm of s4r1, accent, font=\fontsize{5}{6}\selectfont\bfseries] {Sub-sol 4:};
 
-    % Right: Ending Point
-    \begin{scope}[shift={(4.8,0)}]
-        \draw[grid] (0,0) grid (2.4, 1.2);
-        \node[obstacle] at (0.9, 0.3) {O};
-        \node[follower] at (1.5, 0.9) {F};
-        \node[leader]   at (2.1, 0.9) {L};
-        \node[below=0.1cm, font=\footnotesize\bfseries] at (1.2, 0) {End ($E$)};
-    \end{scope}
-\end{tikzpicture}
-\end{center}
+            \node[below=0.3cm of s4r2.south west, accent, font=\fontsize{5}{6}\selectfont\bfseries] {Local Path Synthesis per Goal};
+        \end{tikzpicture}
+        \end{center}
+    }
+    \only<4>{
+        \vspace{0.4cm}
+        \begin{center}
+        \begin{tikzpicture}[
+            box/.style={draw=accent, fill=white, rounded corners=1.5pt, minimum width=1.1cm, minimum height=0.4cm, font=\fontsize{4}{5}\selectfont\bfseries}
+        ]
+
+            % Row R1
+            \node[accent, font=\fontsize{5}{6}\selectfont\bfseries, anchor=east] at (-0.8, 0) {$R_1$};
+            \foreach \i in {1,...,4} { \node (g1s\i) at (\i*1.3 - 1.3, 0) [box] {Sub-sol \i}; }
+
+            % Row R2
+            \node[accent, font=\fontsize{5}{6}\selectfont\bfseries, anchor=east] at (-0.8, -1.0) {$R_2$};
+            \foreach \i in {1,...,3} { \node (g2s\i) at (\i*1.3 - 0.65, -1.0) [box] {Sub-sol \i}; }
+
+            % Row R3
+            \node[accent, font=\fontsize{5}{6}\selectfont\bfseries, anchor=east] at (-0.8, -2.0) {$R_3$};
+            \foreach \i in {1,...,2} { \node (g3s\i) at (\i*1.3, -2.0) [box] {Sub-sol \i}; }
+
+            % Background connections
+            \foreach \i in {1,...,4} { \foreach \j in {1,...,3} { \draw[accent!15, thin] (g1s\i.south) -- (g2s\j.north); } }
+            \foreach \i in {1,...,3} { \foreach \j in {1,...,2} { \draw[accent!15, thin] (g2s\i.south) -- (g3s\j.north); } }
+
+            % Highlighted path 1
+            \draw[accent, thick] (g1s2.south) -- (g2s1.north);
+            \draw[accent, thick] (g2s1.south) -- (g3s2.north);
+            
+            % Highlighted path 2
+            \draw[accent, thick, opacity=0.7] (g1s4.south) -- (g2s2.north);
+            \draw[accent, thick, opacity=0.7] (g2s2.south) -- (g3s1.north);
+            
+            \node[below=0.4cm, orange, font=\tiny\bfseries] at (1.3, -2.4) {Candidate Algorithm $\in R_1 \times R_2 \times \dots \times R_k$};
+        \end{tikzpicture}
+        \end{center}
+    }
+    \end{center}
+\end{columns}
 
 \end{frame}
 
-% Slide 8: Phase 1 - Algo 1 Results
-\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Synthesis Results (Algorithm 1)}}
+% Slide 8: Phase 1 - Candidate Generation (A1b)
+\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Generate candidate algorithms (Algo 1)}}
 \begin{columns}[T,totalwidth=\textwidth]
 
-\column{0.48\textwidth}
-\textbf{Case Study: Algorithm 1 ($A_1^b$)}
-\vspace{0.2cm}
-\begin{itemize}\setlength\itemsep{0.3cm}
-    \item \textbf{Robots:} 2 (Leader + Follower)
-    \item \textbf{Colors:} 3 ($L, R, F$)
-    \item \textbf{Visibility:} Range 1
-    \item \textbf{Scenario:} 8 bounded goals
-\end{itemize}
+% ---- Left column: Illustration ---------------------------------------
+\column{0.38\textwidth}
+\begin{center}
+    \only<1>{
+        \resizebox{\linewidth}{!}{
+            \input{tikz/algo1_grid}
+        }
+    }
+    \only<2>{
+        \resizebox{\linewidth}{!}{
+            \input{tikz/algo1_grid_with_obstacle}
+        }
+    }
+    \only<3->{
+        \resizebox{\linewidth}{!}{
+            \input{tikz/algo1_grid_with_obstacle_with_goals}
+        }
+    }
+\end{center}
 
-\column{0.48\textwidth}
-\uncover<2->{
-\textbf{Combinatorial Reduction}
-\vspace{0.2cm}
-\begin{itemize}\setlength\itemsep{0.3cm}
-    \item \textbf{Pre-computation:} 490 possible rules generated from 35 views
-    \item \textbf{Combinations:} $2,016$ naive rule combinations for the 8 goals
-    \item \textcolor{accent}{\textbf{Output:}} \textbf{5 valid algorithms} synthesized in $\sim$2 seconds
+% ---- Right column: Results (Hidden until Overlay 4) -------------------
+\column{0.62\textwidth}
+\vspace{0.4cm}
+\only<3->{
+\begin{itemize}\setlength\itemsep{0.4cm}
+    \item \textbf{1. Goals:} \href{https://luminousrobots.github.io/RoASt-Configuration-Wizard/?preset=0&edit=false}{\textcolor{accent}{\textbf{8 bounded goals}}}
+    \item \textbf{2. Views \& Rules:} 35 views, \href{https://luminousrobots.github.io/RoASt-exec1-classes/rules_viewer.html}{\textcolor{accent}{\textbf{490 rules}}}
+    \item \textbf{3. Rule Set Computation ($R_i$):}\\
+    \vspace{0.1cm}
+    \resizebox{0.6\textwidth}{!}{
+    \begin{tabular}{lcccccccc}
+        \toprule
+        \textbf{Goal} & $g_1$ & $g_2$ & $g_3$ & $g_4$ & $g_5$ & $g_6$ & $g_7$ & $g_8$ \\
+        \midrule
+        \textbf{Sub-solutions} & 2 & 2 & 2 & 2 & 7 & 18 & 1 & 1 \\
+        \bottomrule
+    \end{tabular}
+    }
+    \item \textbf{4. Candidate Synthesis:} \textbf{5 valid candidates}
 \end{itemize}
 }
 
 \end{columns}
+
 \end{frame}

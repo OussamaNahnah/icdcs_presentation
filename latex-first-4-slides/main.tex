@@ -7,8 +7,14 @@
 \usepackage{tikz}
 \usepackage{array}
 \usepackage{amsmath}
-\usetikzlibrary{arrows.meta,positioning,calc}
+\usetikzlibrary{arrows.meta,positioning,calc,shadows,shapes.geometric}
 \usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{xparse}
+\usepackage{xstring}
+\hypersetup{hidelinks}
 
 \definecolor{accent}{HTML}{2563EB}
 \definecolor{softgray}{HTML}{64748B}
@@ -27,7 +33,10 @@
 
 \newcommand{\bluerobot}{\textcolor{bluebot}{\textbf{blue}}}
 \newcommand{\redrobot}{\textcolor{redbot}{\textbf{red}}}
+\newcommand{\algoUn}{Algo~1}
 \input{utils-latex/rule-module}
+\input{utils-latex/goal-module}
+\input{utils-latex/robot_grid_module}
 % Helper to create module-indexed frame titles: \ModuleFrameTitle{<n>}{<Title>}
 % Prints the index as an uppercase Roman numeral
 \newcommand{\ModuleFrameTitle}[2]{\textbf{\MakeUppercase{\romannumeral#1}}~#2}
@@ -41,7 +50,6 @@
 \input{slide6-methodology}
 \input{slide7-synthesis}
 \input{slide8-validation}
-\input{slide9-induction}
 \input{slide10-classification}
 \input{slide11-experimental-results}
 \input{slide-references}

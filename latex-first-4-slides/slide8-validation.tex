@@ -1,50 +1,25 @@
-% =====================================================================
-% PHASE 2: VALIDATION
-% =====================================================================
+% Slide 9: Phase 2 - Validation Methodology
+\begin{frame}{\ModuleFrameTitle{3}{Phase 2: Validation by simulation \& proof}}
 
-% Slide 9: Phase 2 - Definition
-\begin{frame}{\ModuleFrameTitle{3}{Phase 2: Validation by Simulation (Concept)}}
-
-\textbf{Method:} Filter and verify global perpetual exploration.
-
-\vspace{0.6cm}
-\begin{center}
-\begin{tikzpicture}[
-    node distance=0.6cm,
-    box/.style={rectangle, draw=accent, thick, fill=accent!5, text width=3.2cm, minimum height=1.2cm, align=center, rounded corners, font=\scriptsize\bfseries},
-    arrow/.style={->, >=Stealth, thick, accent}
-]
-    \node[box] (filter) {1. Energy Filter\\ \normalfont\scriptsize(Sort by efficiency)};
-    \node[box, right=of filter] (grids) {2. Minimal Grids\\ \normalfont\scriptsize(Test all hole positions)};
-    \node[box, right=of grids] (cycle) {3. Cycle Detection\\ \normalfont\scriptsize(Verify full exploration)};
-
-    \draw[arrow] (filter) -- (grids);
-    \draw[arrow] (grids) -- (cycle);
-\end{tikzpicture}
-\end{center}
-
+% ---- Left Column: The Constraints --------
+\vspace{0.2cm}
+\begin{itemize}\setlength\itemsep{0.4cm}
+    \item<1-> \textbf{1. Exhaustive experiments on base grids}\\ \textcolor{softgray}{\scriptsize (All small grids + parities $\times$ initial configurations)}
+    \item<2-> \textbf{2. Exhaustive simulation-based validation}\\ \textcolor{softgray}{\scriptsize (Algorithm is validated only if all experimental scenarios succeed)}
+    \item<3-> \textbf{3. Formal proof of infinite scalability via induction}\\ \textcolor{softgray}{\scriptsize (Mathematical induction for grid scalability)}
+\end{itemize}
 \end{frame}
 
-% Slide 10: Phase 2 - Algo 1 Results
-\begin{frame}{\ModuleFrameTitle{3}{Phase 2: Validation Results (Algorithm 1)}}
 
-\textbf{Simulation Parameters ($A_1$)}
-\vspace{0.2cm}
-\begin{itemize}\setlength\itemsep{0.2cm}
-    \item \textbf{Grids tested:} $7 \times 7$ up to $9 \times 9$
-    \item \textbf{Initial configurations:} 12 (hole in sight)
-    \item \textbf{Total tests:} 324 simulations per candidate
-\end{itemize}
+% Slide 11: Phase 2 - Validation Results (Algo 1)
+\begin{frame}{\ModuleFrameTitle{3}{Phase 2: Validation Results (Algo 1)}}
+\vspace{0.4cm}
+\begin{itemize}\setlength\itemsep{0.6cm}
+    \item \href{https://luminousrobots.github.io/RoASt-exec1-classes/grid_definitions.txt}{\textcolor{accent}{\textbf{27 unique grids}}}, \href{https://luminousrobots.github.io/RoASt-exec1-classes/initial_configs_viewer}{\textcolor{accent}{\textbf{12 initial configurations}}} ($I_{sim}$)
+    \\ \textcolor{softgray}{\scriptsize (7x7 to 9x9 grids, all possible obstacle placements and robot configurations)}
 
-\vspace{0.6cm}
-\uncover<2->{
-\textbf{Outcomes ($A_1$)}
-\vspace{0.2cm}
-\begin{itemize}\setlength\itemsep{0.2cm}
-    \item \textbf{Tested:} 5 candidate algorithms across 4 energy levels
-    \item \textcolor{accent}{\textbf{Result:}} \textbf{5 / 5 algorithms successfully validated}
-    \item \textbf{Time:} 0.8 seconds total
+    \item \href{https://luminousrobots.github.io/RoASt-exec1-classes/_all_possible_configurations.log}{\textcolor{accent}{\textbf{324 exhaustive experiments}}} per candidate
+    \item \textbf{5 candidates tested}, \href{https://luminousrobots.github.io/RoASt-Executions/Exec1_Algo1_Pole_Goals1_Main/viewer.html}{\textcolor{accent}{\textbf{5 successfully validated}}}
 \end{itemize}
-}
 
 \end{frame}

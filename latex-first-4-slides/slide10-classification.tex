@@ -2,44 +2,35 @@
 % PHASE 4: CLASSIFICATION
 % =====================================================================
 
-% Slide 13: Phase 4 - Definition
-\begin{frame}{\ModuleFrameTitle{3}{Phase 4: Automated Classification (Concept)}}
+% Slide 13: Phase 4 - Automated Classification (Integrated)
+\begin{frame}{\ModuleFrameTitle{3}{Phase 3: Classification (Algo 1)}}
 
-\textbf{Goal:} Group generated algorithms into behavioral equivalence classes.
+\begin{columns}[T,totalwidth=\textwidth]
+% ---- Left Column: Criteria ----------------------------------------
+\column{0.55\textwidth}
+    \textbf{Equivalence Criteria}
+    \vspace{0.6cm}
+    \begin{itemize}\setlength\itemsep{0.8cm}
+        \item \textbf{C1:} Number of Rules
+        \item \textbf{C2:} Rounds in Cycle
+        \item \textbf{C3:} Energy in Cycle
+        \item \textbf{C4:} Paths in Cycle
+    \end{itemize}
 
-\vspace{0.4cm}
-\begin{itemize}\setlength\itemsep{0.4cm}
-    \item \textbf{C1: Rules} \textcolor{softgray}{\scriptsize (Syntactic comparison of rule sets)}
-    \item \textbf{C2: Rounds} \textcolor{softgray}{\scriptsize (Time to complete one full exploration cycle)}
-    \item \textbf{C3: Energy} \textcolor{softgray}{\scriptsize (Total movements + color changes per cycle)}
-    \item \textbf{C4: Path} \textcolor{softgray}{\scriptsize (Physical trajectory on the grid)}
-\end{itemize}
+% ---- Right Column: Outcomes ---------------------------------------
+\column{0.45\textwidth}
+    \uncover<2->{
+    \href{https://luminousrobots.github.io/RoASt-exec1-classes/global_classification.html}{\textcolor{accent}{\textbf{Classification Results for Algo 1}}}
+    \vspace{0.6cm}
+    \begin{itemize}\setlength\itemsep{0.8cm}
+        \item \textbf{C1:} 3 Classes
+        \item \textbf{C2:} 1 Class
+        \item \textbf{C3:} 5 Classes
+        \item \textbf{C4:} 3 Classes
+    \end{itemize}
+    }
+\end{columns}
 
-\end{frame}
-
-% Slide 14: Phase 4 - Algo 1 Results
-\begin{frame}{\ModuleFrameTitle{3}{Phase 4: Classification Results (Algorithm 1)}}
-
-\textbf{Classifying the 5 Validated Algorithms ($A_1$)}
-
-\vspace{0.6cm}
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{ll}
-\toprule
-\textbf{Equivalence Criterion} & \textbf{Outcome} \\
-\midrule
-\textbf{C1: Number of Rules}  & 3 Classes \textcolor{softgray}{\scriptsize (Two classes of 2, One class of 1)} \\
-\textbf{C2: Rounds in Cycle}  & 1 Class \textcolor{softgray}{\scriptsize (All 5 algorithms have identical time cost)} \\
-\textbf{C3: Energy in Cycle}  & 5 Classes \textcolor{softgray}{\scriptsize (Every algorithm has unique energy cost)} \\
-\textbf{C4: Paths in Cycle}   & 3 Classes \textcolor{softgray}{\scriptsize (Slight variations in local trajectories)} \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\vspace{0.4cm}
-\uncover<2->{
-$\rightarrow$ \textbf{Takeaway:} The tool found 5 strictly distinct behavioral solutions to bypass the obstacle.
-}
+\vfill
 
 \end{frame}
