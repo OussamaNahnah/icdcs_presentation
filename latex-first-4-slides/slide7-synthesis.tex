@@ -8,7 +8,7 @@
 \column{0.45\textwidth}
     \begin{itemize}\setlength\itemsep{0.7cm}
         \item<1-> \textbf{1. Define goals, bounding box, and rounds $k$}
-        \item<2-> \textbf{2. Generate all possible views and rules}
+        \item<2-> \textbf{2. Generate all possible views, rules and parallel rules}
         \item<3-> \textbf{3. Compute Rule Sets ($R_i$) for each goal $i$}
         \item<4-> \textbf{4. Combine and filter candidate algorithms}
     \end{itemize}
@@ -45,7 +45,7 @@
             }
             \draw[draw=accent, fill=white, rounded corners=1.5pt, thick] (16*0.25 - 0.8, 16*0.04) rectangle ++(1.4, 2.0);
             \node at (16*0.25+0.7 - 0.8, 16*0.04+1.05) {\scalebox{0.65}{\RuleModule{1}{redbot/1/0}{bluebot}{right}{B}{Rule 490}}};
-            \node[anchor=north, accent, font=\fontsize{5}{6}\selectfont\bfseries] at (2.2, 0.1) {Total: 490+ Rules Generated};
+            \node[anchor=north, accent, font=\fontsize{5}{6}\selectfont\bfseries] at (2.2, 0.1) {Total: 490+ Rules \& 2,449 Parallel Rules Generated};
         \end{tikzpicture}
         \end{center}
     }
@@ -155,8 +155,8 @@
 \vspace{0.4cm}
 \only<3->{
 \begin{itemize}\setlength\itemsep{0.4cm}
-    \item \textbf{1. Goals:} \href{https://luminousrobots.github.io/RoASt-Configuration-Wizard/?preset=0&edit=false}{\textcolor{accent}{\textbf{8 bounded goals}}}
-    \item \textbf{2. Views \& Rules:} 35 views, \href{https://luminousrobots.github.io/RoASt-exec1-classes/rules_viewer.html}{\textcolor{accent}{\textbf{490 rules}}}
+    \item \textbf{1. Goals:} \href{https://luminousrobots.github.io/RoASt-Configuration-Wizard/?preset=0&edit=false}{\textcolor{accent}{\textbf{8 bounded goals}}} \pause
+    \item \textbf{2. Views, Rules \& Parallel Rules:} 35 views, \href{https://luminousrobots.github.io/RoASt-exec1-classes/rules_viewer.html}{\textcolor{accent}{\textbf{490 rules}}}, \href{https://luminousrobots.github.io/RoASt-exec1-classes/parallel_rules_viewer.html}{\textcolor{accent}{\textbf{2449 parallel rules}}} \pause
     \item \textbf{3. Rule Set Computation ($R_i$):}\\
     \vspace{0.1cm}
     \resizebox{0.6\textwidth}{!}{
@@ -167,7 +167,7 @@
         \textbf{Sub-solutions} & 2 & 2 & 2 & 2 & 7 & 18 & 1 & 1 \\
         \bottomrule
     \end{tabular}
-    }
+    } \pause
     \item \textbf{4. Candidate Synthesis:} \textbf{5 valid candidates}
 \end{itemize}
 }
