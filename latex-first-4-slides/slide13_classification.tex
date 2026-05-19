@@ -2,21 +2,21 @@
 \begin{frame}{\ModuleFrameTitle{3}{Phase 3: Classification Criteria}}
 
 \vspace{0.2cm}
-\textbf{Method:} Compare syntax and behavior \textbf{across all simulations}.
-\vspace{0.3cm}
+\textbf{Method:} Compare syntax and behavior \textbf{across all simulations }\textbf{\textcolor{accent}{\scriptsize [by tool]}}.
+\vspace{0.4cm}
 
 \begin{itemize}\small\setlength\itemsep{0.15cm}
-    \item<2-> \textbf{C1: Number of Rules} \textcolor{softgray}{\scriptsize (Syntax)}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ Equivalent if same number of rules}
+    \item<1-> \textbf{C1: Number of Rules} \textcolor{softgray}{\scriptsize (Syntax)}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ Same rule set size: $|R_A| = |R_B|$}
               
-    \item<3-> \textbf{C2: Rounds in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ Equivalent if same execution LCM cycle in the exploration cycle on each simulation}
+    \item<2-> \textbf{C2: Rounds in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ Same execution LCM cycle in the exploration cycle on each simulation}
               
-    \item<4-> \textbf{C3: Energy in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ Equivalent if same energy cost in the exploration cycle on each simulation}
+    \item<3-> \textbf{C3: Energy in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ Same energy cost (movement \& color changes) on each simulation}
               
-    \item<5-> \textbf{C4: Paths in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ Equivalent if same robot trajectories in the exploration cycle on each simulation}
+    \item<4-> \textbf{C4: Paths in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ Same robot trajectories in the exploration cycle on each simulation}
 \end{itemize}
 
 \end{frame}
@@ -33,16 +33,16 @@
 
 \begin{itemize}\setlength\itemsep{0.3cm}
     \item<1-> \textbf{C1 (Rules): 3 Classes}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ $\{A_1\}$, $\{A_2, A_3\}$, $\{A_4, A_5\}$}
+              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1\} \quad \{A_2, A_3\} \quad \{A_4, A_5\}$}
               
     \item<2-> \textbf{C2 (Rounds): 1 Class}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ $\{A_1, A_2, A_3, A_4, A_5\}$}
+              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1, A_2, A_3, A_4, A_5\} = \mathcal{A}$}
               
     \item<3-> \textbf{C3 (Energy): 5 Classes}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ $\{A_1\}$, $\{A_2\}$, $\{A_3\}$, $\{A_4\}$, $\{A_5\}$}
+              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1\} \quad \{A_2\} \quad \{A_3\} \quad \{A_4\} \quad \{A_5\}$}
               
     \item<4-> \textbf{C4 (Paths): 3 Classes}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ $\{A_1\}$, $\{A_2, A_3\}$, $\{A_4, A_5\}$}
+              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1\} \quad \{A_2, A_3\} \quad \{A_4, A_5\}$}
 \end{itemize}
 
 \vfill
