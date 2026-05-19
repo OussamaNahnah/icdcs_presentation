@@ -1,0 +1,46 @@
+% Slide 10: Phase 1 - Generate candidate algorithms (Algo 1)
+\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Generate candidate algorithms (Algo 1)}}
+
+\only<1>{
+    \begin{columns}[T,totalwidth=\textwidth]
+    % ---- Left column: Goals Text ----
+    \column{0.48\textwidth}
+    \vspace{1.2cm}
+    \begin{itemize}\small\setlength\itemsep{0.4cm}
+        \item \textbf{1. Goals:} \href{https://luminousrobots.github.io/RoASt-Configuration-Wizard/?preset=0&edit=false}{\textcolor{accent}{\textbf{8 bounded goals}}}
+    \end{itemize}
+
+    % ---- Right column: Grid 3 ----
+    \column{0.48\textwidth}
+    \begin{center}
+        \resizebox{0.9\linewidth}{!}{
+            \input{tikz/algo1_grid_with_obstacle_with_goals}
+        }
+    \end{center}
+    \end{columns}
+}
+
+\only<2->{
+    \vspace{0.2cm}
+    \begin{itemize}\small\setlength\itemsep{0.4cm}
+        \item \textbf{1. Goals:} \href{https://luminousrobots.github.io/RoASt-Configuration-Wizard/?preset=0&edit=false}{\textcolor{accent}{\textbf{8 bounded goals}}}
+        
+        \item<2-> \textbf{2. Views, Rules \& Parallel Rules:} 35 views, \href{https://luminousrobots.github.io/RoASt-exec1-classes/rules_viewer.html}{\textcolor{accent}{\textbf{490 rules}}}, \href{https://luminousrobots.github.io/RoASt-exec1-classes/parallel_rules_viewer.html}{\textcolor{accent}{\textbf{2449 parallel rules}}}
+        
+        \item<3-> \textbf{3. Sub-solutions ($R_i$):}\\
+        \vspace{0.1cm}
+        \resizebox{0.6\textwidth}{!}{
+        \begin{tabular}{lcccccccc}
+            \toprule
+            \textbf{Goal} & $g_1$ & $g_2$ & $g_3$ & $g_4$ & $g_5$ & $g_6$ & $g_7$ & $g_8$ \\
+            \midrule
+            \textbf{Sub-solutions} & 2 & 2 & 2 & 2 & 7 & 18 & 1 & 1 \\
+            \bottomrule
+        \end{tabular}
+        }
+        
+        \item<4-> \textbf{4. Candidate Synthesis:} \textbf{5 candidates} synthesized (set $\mathcal{C}$)
+    \end{itemize}
+}
+
+\end{frame}

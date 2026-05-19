@@ -1,0 +1,211 @@
+% Slide 8: Phase 1 - Generate candidate algorithms
+\begin{frame}{\ModuleFrameTitle{3}{Phase 1: Generate candidate algorithms}}
+\centering
+\vspace{-0.2cm}
+\only<1>{%
+    \textbf{\large 1. Define goals, bounding box, and rounds $k$ }\textbf{\textcolor{accent}{\scriptsize [by hand]}}\\[0.6cm]
+    \begin{center}
+    \begin{tikzpicture}[
+        lbl/.style={font=\fontsize{7}{8}\selectfont\bfseries},
+        lbllegend/.style={font=\fontsize{8}{9}\selectfont\bfseries},
+        arrow/.style={->, >=Stealth, thick, accent},
+        obsarrow/.style={->, >=Stealth, thick, colorO!90!black}
+    ]
+        % --- START STATE (Left) ---
+        \begin{scope}[xshift=0cm, yshift=0.5cm]
+            % Grid lines
+            \foreach \x in {0,...,5} {
+                \foreach \y in {0,...,3} {
+                    \pgfmathtruncatemacro{\xp}{\x+1}
+                    \draw[gray!30, thin] (\x*0.7, \y*0.7) -- (\xp*0.7, \y*0.7);
+                }
+            }
+            \foreach \x in {0,...,6} {
+                \foreach \y in {0,...,2} {
+                    \pgfmathtruncatemacro{\yp}{\y+1}
+                    \draw[gray!30, thin] (\x*0.7, \y*0.7) -- (\x*0.7, \yp*0.7);
+                }
+            }
+            % Empty background circles
+            \foreach \x in {0,...,6} {
+                \foreach \y in {0,...,3} {
+                    \node[circle, draw=gray!20, thin, fill=white, minimum size=0.42cm, inner sep=0pt] (S\x\y) at (\x*0.7, \y*0.7) {};
+                }
+            }
+            % Highlighted nodes
+            \node[circle, draw=black, thick, fill=colorO, minimum size=0.42cm, inner sep=0pt, font=\scriptsize\bfseries] (SObstacle) at (3*0.7, 1*0.7) {O};
+            \node[circle, draw=black, thick, fill=colorL, minimum size=0.42cm, inner sep=0pt, font=\scriptsize\bfseries] (SLeader) at (2*0.7, 1*0.7) {L};
+            \node[circle, draw=black, thick, fill=colorF, minimum size=0.42cm, inner sep=0pt, font=\scriptsize\bfseries] (SFollower) at (1*0.7, 1*0.7) {F};
+            
+            % Dashed Bounding Box
+            \draw[thick, accent, dashed, rounded corners=3pt] 
+                (1*0.7 - 0.33, 1*0.7 - 0.33) rectangle (5*0.7 + 0.33, 2*0.7 + 0.33);
+                
+            \node[anchor=north, lbl, text=black] at (3*0.7, -0.2) {Start State ($S$)};
+        \end{scope}
+
+        % --- TARGET STATE (Right) ---
+        \begin{scope}[xshift=4.9cm, yshift=0.5cm]
+            % Grid lines
+            \foreach \x in {0,...,5} {
+                \foreach \y in {0,...,3} {
+                    \pgfmathtruncatemacro{\xp}{\x+1}
+                    \draw[gray!30, thin] (\x*0.7, \y*0.7) -- (\xp*0.7, \y*0.7);
+                }
+            }
+            \foreach \x in {0,...,6} {
+                \foreach \y in {0,...,2} {
+                    \pgfmathtruncatemacro{\yp}{\y+1}
+                    \draw[gray!30, thin] (\x*0.7, \y*0.7) -- (\x*0.7, \yp*0.7);
+                }
+            }
+            % Empty background circles
+            \foreach \x in {0,...,6} {
+                \foreach \y in {0,...,3} {
+                    \node[circle, draw=gray!20, thin, fill=white, minimum size=0.42cm, inner sep=0pt] (T\x\y) at (\x*0.7, \y*0.7) {};
+                }
+            }
+            % Highlighted nodes
+            \node[circle, draw=black, thick, fill=colorO, minimum size=0.42cm, inner sep=0pt, font=\scriptsize\bfseries] (TObstacle) at (3*0.7, 1*0.7) {O};
+            \node[circle, draw=black, thick, fill=colorL, minimum size=0.42cm, inner sep=0pt, font=\scriptsize\bfseries] (TLeader) at (5*0.7, 2*0.7) {L};
+            \node[circle, draw=black, thick, fill=colorF, minimum size=0.42cm, inner sep=0pt, font=\scriptsize\bfseries] (TFollower) at (4*0.7, 2*0.7) {F};
+            
+            % Dashed Bounding Box
+            \draw[thick, accent, dashed, rounded corners=3pt] 
+                (1*0.7 - 0.33, 1*0.7 - 0.33) rectangle (5*0.7 + 0.33, 2*0.7 + 0.33);
+                
+            \node[anchor=north, lbl, text=black] at (3*0.7, -0.2) {Target State ($E$)};
+        \end{scope}
+
+        % --- LEGENDS & ANNOTATIONS ---
+        % 1. Bounding Box Legend (pointing to start state bounding box)
+        \node[anchor=south, lbllegend, text=accent] (bbox_lbl) at (0.7, 3.2) {Bounding Box};
+        \draw[arrow] (bbox_lbl.south) -- (0.7, 2.2);
+
+        % 2. Obstacle Legend (pointing to obstacle 'O')
+        \node[anchor=south, lbllegend, text=colorO!90!black] (obs_lbl) at (3.3, 3.2) {Obstacle};
+        \draw[obsarrow] (obs_lbl.south) -- (2.1, 1.35);
+
+        % 3. Transition / Number of Rounds Arrow
+        \draw[->, >=Stealth, ultra thick, accent!70] (4.1, 1.45) -- (4.7, 1.45)
+            node[midway, above=0.02cm, font=\fontsize{7}{8}\selectfont\bfseries, text=accent] {Rounds $k=4$};
+    \end{tikzpicture}
+    \end{center}
+}%
+\only<2>{%
+    \textbf{\large 2. Generate all possible views, rules and parallel rules }\textbf{\textcolor{accent}{\scriptsize [by tool]}}\\[0.6cm]
+    \begin{center}
+    \begin{tikzpicture}
+        % ==================== PILE 1: VIEWS (Left) ====================
+        \begin{scope}[xshift=-3.5cm]
+            \foreach \i in {1,...,5} {
+                \draw[draw=accent!25, fill=white, rounded corners=2pt, drop shadow={opacity=0.02}] (\i*0.05 - 1.25, \i*0.05) rectangle ++(2.1, 3.0);
+            }
+            \draw[draw=accent, fill=white, rounded corners=2pt, thick] (6*0.05 - 1.25, 6*0.05) rectangle ++(2.1, 3.0);
+            \node at (6*0.05+1.05 - 1.25, 6*0.05+1.5) {\scalebox{0.95}{\RuleModule{1}{redbot/1/0,colorO/-1/0}{bluebot}{}{}{View}}};
+            \node[anchor=north, black!80, font=\fontsize{8.5}{10}\selectfont\bfseries] at (0, -0.1) {Views};
+        \end{scope}
+
+        % ==================== PILE 2: RULES (Middle) ====================
+        \begin{scope}[xshift=0cm]
+            \foreach \i in {1,...,9} {
+                \draw[draw=accent!25, fill=white, rounded corners=2pt, drop shadow={opacity=0.02}] (\i*0.05 - 1.25, \i*0.05) rectangle ++(2.1, 3.0);
+            }
+            \draw[draw=accent, fill=white, rounded corners=2pt, thick] (10*0.05 - 1.25, 10*0.05) rectangle ++(2.1, 3.0);
+            \node at (10*0.05+1.05 - 1.25, 10*0.05+1.5) {\scalebox{0.95}{\RuleModule{1}{redbot/1/0,colorO/-1/0}{bluebot}{right}{B}{Rule}}};
+            \node[anchor=north, black!80, font=\fontsize{8.5}{10}\selectfont\bfseries] at (0, -0.1) {Rules};
+        \end{scope}
+
+        % ==================== PILE 3: PARALLEL RULES (Right) ====================
+        \begin{scope}[xshift=3.5cm]
+            \foreach \i in {1,...,14} {
+                \draw[draw=accent!25, fill=white, rounded corners=2pt, drop shadow={opacity=0.02}] (\i*0.05 - 1.55, \i*0.05) rectangle ++(2.7, 3.0);
+            }
+            \draw[draw=accent, fill=white, rounded corners=2pt, thick] (15*0.05 - 1.55, 15*0.05) rectangle ++(2.7, 3.0);
+            \node at (15*0.05+1.35 - 1.55, 15*0.05+1.5) {\scalebox{0.95}{\ParallelRuleModule{1}{bluebot}{right}{B}{1}{0}{redbot}{right}{R}}};
+            \node[anchor=north, black!80, font=\fontsize{8.5}{10}\selectfont\bfseries] at (0, -0.1) {Parallel Rules};
+        \end{scope}
+
+        \node[anchor=north, accent, font=\fontsize{9}{10}\selectfont\bfseries] at (0, -0.7) {Pre-computed elements for Synthesis};
+    \end{tikzpicture}
+    \end{center}
+}%
+\only<3>{%
+    \textbf{\large 3. Compute sub-solutions ($R_i$) for each goal $i$ }\textbf{\textcolor{accent}{\scriptsize [by tool]}}\\[0.6cm]
+    \begin{center}
+    \begin{tikzpicture}[
+        rulebox/.style={draw=accent, fill=white, rounded corners=2.5pt, font=\fontsize{8}{9.5}\selectfont\bfseries, minimum width=1.5cm, minimum height=0.7cm},
+        sublbl/.style={accent, font=\fontsize{8.5}{10}\selectfont\bfseries},
+        thickarrow/.style={->, >=Stealth, thick, accent!60}
+    ]
+        % Suite 1
+        \node[rulebox] (s1r1) {Rule 80};
+        \node[rulebox, right=0.5cm of s1r1] (s1r2) {Rule 99};
+        \node[rulebox, right=0.5cm of s1r2] (s1r3) {Rule 1};
+        \node[rulebox, right=0.5cm of s1r3] (s1r4) {Rule 5};
+        \draw[thickarrow] (s1r1) -- (s1r2); \draw[thickarrow] (s1r2) -- (s1r3); \draw[thickarrow] (s1r3) -- (s1r4);
+        \node[left=0.3cm of s1r1, sublbl] {Sub-sol 1.1:};
+
+        % Suite 2
+        \node[rulebox, below=0.55cm of s1r1] (s2r1) {Rule 12};
+        \node[rulebox, right=0.5cm of s2r1] (s2r2) {Rule 45};
+        \node[rulebox, right=0.5cm of s2r2] (s2r3) {Rule 3};
+        \draw[thickarrow] (s2r1) -- (s2r2); \draw[thickarrow] (s2r2) -- (s2r3);
+        \node[left=0.3cm of s2r1, sublbl] {Sub-sol 1.2:};
+
+        % Suite 3
+        \node[rulebox, below=0.55cm of s2r1] (s3r1) {Rule 110};
+        \node[rulebox, right=0.5cm of s3r1] (s3r2) {Rule 22};
+        \node[rulebox, right=0.5cm of s3r2] (s3r3) {Rule 4};
+        \node[rulebox, right=0.5cm of s3r3] (s3r4) {Rule 31};
+        \draw[thickarrow] (s3r1) -- (s3r2); \draw[thickarrow] (s3r2) -- (s3r3); \draw[thickarrow] (s3r3) -- (s3r4);
+        \node[left=0.3cm of s3r1, sublbl] {Sub-sol 1.3:};
+
+        % Suite 4
+        \node[rulebox, below=0.55cm of s3r1] (s4r1) {Rule 201};
+        \node[rulebox, right=0.5cm of s4r1] (s4r2) {Rule 8};
+        \draw[thickarrow] (s4r1) -- (s4r2);
+        \node[left=0.3cm of s4r1, sublbl] {Sub-sol 1.4:};
+    \end{tikzpicture}
+    \end{center}
+}%
+\only<4>{%
+    \textbf{\large 4. Combine and filter candidate algorithms} \textbf{\textcolor{accent}{\scriptsize [by tool]}}\\[0.6cm]
+    \begin{center}
+    \scalebox{0.85}{%
+    \begin{tikzpicture}[
+        box/.style={draw=accent, fill=white, rounded corners=2.5pt, minimum width=2.0cm, minimum height=0.75cm, font=\fontsize{8.5}{10}\selectfont\bfseries}
+    ]
+
+        % Row R1
+        \node[accent, font=\fontsize{8.5}{9.5}\selectfont\bfseries, anchor=east] at (-1.2, 0) {Goal 1 sub-solutions ($R_1$)};
+        \foreach \i in {1,...,4} { \node (g1s\i) at (\i*2.2 - 2.2, 0) [box] {Sub-sol 1.\i}; }
+
+        % Row R2
+        \node[accent, font=\fontsize{8.5}{9.5}\selectfont\bfseries, anchor=east] at (-1.2, -1.6) {Goal 2 sub-solutions ($R_2$)};
+        \foreach \i in {1,...,3} { \node (g2s\i) at (\i*2.2 - 1.1, -1.6) [box] {Sub-sol 2.\i}; }
+
+        % Row R3
+        \node[accent, font=\fontsize{8.5}{9.5}\selectfont\bfseries, anchor=east] at (-1.2, -3.2) {Goal 3 sub-solutions ($R_3$)};
+        \foreach \i in {1,...,2} { \node (g3s\i) at (\i*2.2, -3.2) [box] {Sub-sol 3.\i}; }
+
+        % Background connections
+        \foreach \i in {1,...,4} { \foreach \j in {1,...,3} { \draw[accent!15, thin] (g1s\i.south) -- (g2s\j.north); } }
+        \foreach \i in {1,...,3} { \foreach \j in {1,...,2} { \draw[accent!15, thin] (g2s\i.south) -- (g3s\j.north); } }
+
+        % Highlighted path 1
+        \draw[accent, ultra thick] (g1s2.south) -- (g2s1.north);
+        \draw[accent, ultra thick] (g2s1.south) -- (g3s2.north);
+        
+        % Highlighted path 2
+        \draw[accent, ultra thick, opacity=0.6] (g1s4.south) -- (g2s2.north);
+        \draw[accent, ultra thick, opacity=0.6] (g2s2.south) -- (g3s1.north);
+        
+        % Mathematical Output
+        \node[below=0.4cm, orange, font=\fontsize{9}{10}\selectfont\bfseries] at (2.2, -3.6) {Candidate Algorithm in $\mathcal{C} = \text{Valid}(R_1 \times R_2 \times \dots \times R_m) \cup A_b$};
+    \end{tikzpicture}%
+    }
+    \end{center}
+}%
+
+\end{frame}
