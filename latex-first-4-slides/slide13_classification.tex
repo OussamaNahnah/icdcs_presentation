@@ -1,26 +1,4 @@
-% Slide 13: Phase 3 - Classification (Criteria)
-\begin{frame}{\ModuleFrameTitle{3}{Phase 3: Classification (Criteria)}}
-
-\textbf{How is it calculated?} \\
-\textcolor{softgray}{\scriptsize Algorithms are partitioned into equivalence classes by comparing the pre-computed data from \textbf{Synthesis} (syntax) and \textbf{Simulations} (behavior on all grids).}
-\vspace{0.4cm}
-
-{\small
-\begin{itemize}\setlength\itemsep{0.35cm}
-    \item<1-> \textbf{C1: Number of Rules} \textcolor{softgray}{\scriptsize (Syntactic)} \\
-          \textcolor{accent}{\scriptsize $\hookrightarrow$ Equal number of rules for each algorithm.}
-    \item<2-> \textbf{C2: Rounds in Cycle} \textcolor{softgray}{\scriptsize (Behavioral)} \\
-          \textcolor{accent}{\scriptsize $\hookrightarrow$ Same number of execution rounds on all grid simulations.}
-    \item<3-> \textbf{C3: Energy in Cycle} \textcolor{softgray}{\scriptsize (Behavioral)} \\
-          \textcolor{accent}{\scriptsize $\hookrightarrow$ Same energy cost on all grid simulations (energy = movement or color change).}
-    \item<4-> \textbf{C4: Paths in Cycle} \textcolor{softgray}{\scriptsize (Behavioral)} \\
-          \textcolor{accent}{\scriptsize $\hookrightarrow$ Identical robot trajectories on all simulations.}
-\end{itemize}
-}
-
-\end{frame}
-
-% Slide 13b: Phase 3 - Classification (Algo 1 - Results)
+% Slide 13: Phase 3 - Classification (Algo 1 - Results)
 \begin{frame}{\ModuleFrameTitle{3}{Phase 3: Classification (Algo 1 - Results)}}
 
 {\small
@@ -29,24 +7,24 @@
 & & & \uncover<5->{\href{https://luminousrobots.github.io/RoASt-exec1-classes/global_classification.html}{\textcolor{accent}{\textbf{Results: $\mathcal{A}$ (5 algos)}}}} \\[0.25cm]
 
 \uncover<1->{\textcolor{accent}{\textbullet}} & 
-\uncover<1->{\textbf{C1: Number of Rules}} & 
+\uncover<1->{\textbf{C1: Number of Rules} \textcolor{softgray}{\scriptsize (Syntax)}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Same number of rules}} & 
 \uncover<5->{\textcolor{accent}{\textbullet}} & 
 \uncover<5->{\textbf{C1: 3 Classes}} \\[0.3cm]
 
 \uncover<2->{\textcolor{accent}{\textbullet}} & 
-\uncover<2->{\textbf{C2: Rounds in Cycle}} & 
+\uncover<2->{\textbf{C2: Rounds in Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Same execution rounds on each grid}} & 
 \uncover<6->{\textcolor{accent}{\textbullet}} & 
-\uncover<6->{\textbf{C2: 1 Class}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Same number of rounds for all candidates}} \\[0.3cm]
+\uncover<6->{\textbf{C2: 1 Class}} \\[0.3cm]
 
 \uncover<3->{\textcolor{accent}{\textbullet}} & 
-\uncover<3->{\textbf{C3: Energy in Cycle}\newline \textcolor{accent}{\scriptsize $\rightarrow$energy = movement or color change}} & 
+\uncover<3->{\textbf{C3: Energy in Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Same energy cost on each grid}} & 
 \uncover<7->{\textcolor{accent}{\textbullet}} & 
-\uncover<7->{\textbf{C3: 5 Classes}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Unique energy cost for each candidate}} \\[0.3cm]
+\uncover<7->{\textbf{C3: 5 Classes}} \\[0.3cm]
 
 \uncover<4->{\textcolor{accent}{\textbullet}} & 
-\uncover<4->{\textbf{C4: Paths in Cycle}} & 
+\uncover<4->{\textbf{C4: Paths in Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Same robot trajectories on each grid}} & 
 \uncover<8->{\textcolor{accent}{\textbullet}} & 
-\uncover<8->{\textbf{C4: 3 Classes}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Three different paths}} \\
+\uncover<8->{\textbf{C4: 3 Classes}} \\
 \end{tabular}
 }
 
