@@ -1,38 +1,55 @@
-% Slide 13: Phase 3 - Classification (Algo 1 - Results)
-\begin{frame}{\ModuleFrameTitle{3}{Phase 3: Classification (Algo 1 - Results)}}
+% Slide 13: Phase 3 - Classification Criteria
+\begin{frame}{\ModuleFrameTitle{3}{Phase 3: Classification Criteria}}
 
-{\small
-\setlength{\tabcolsep}{1pt}
-\begin{tabular}{@{} p{0.03\textwidth} >{\raggedright\arraybackslash}p{0.44\textwidth} p{0.03\textwidth} >{\raggedright\arraybackslash}p{0.42\textwidth} @{}}
-& & & \uncover<5->{\href{https://luminousrobots.github.io/RoASt-exec1-classes/global_classification.html}{\textcolor{accent}{\textbf{Results: $\mathcal{A}$ (5 algos)}}}} \\[0.25cm]
+\vspace{0.2cm}
+\textbf{Method:} Compare syntax and behavior \textbf{across all simulations}.
+\vspace{0.3cm}
 
-\uncover<1->{\textcolor{accent}{\textbullet}} & 
-\uncover<1->{\textbf{C1: Number of Rules} \textcolor{softgray}{\scriptsize (Syntax)}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Same number of rules}} & 
-\uncover<5->{\textcolor{accent}{\textbullet}} & 
-\uncover<5->{\textbf{C1: 3 Classes}} \\[0.3cm]
+\begin{itemize}\small\setlength\itemsep{0.15cm}
+    \item<2-> \textbf{C1: Number of Rules} \textcolor{softgray}{\scriptsize (Syntax)}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ Equivalent if same number of rules}
+              
+    \item<3-> \textbf{C2: Rounds in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ Equivalent if same execution LCM cycle in the exploration cycle on each simulation}
+              
+    \item<4-> \textbf{C3: Energy in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ Equivalent if same energy cost in the exploration cycle on each simulation}
+              
+    \item<5-> \textbf{C4: Paths in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ Equivalent if same robot trajectories in the exploration cycle on each simulation}
+\end{itemize}
 
-\uncover<2->{\textcolor{accent}{\textbullet}} & 
-\uncover<2->{\textbf{C2: Rounds in Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Same execution rounds on each grid}} & 
-\uncover<6->{\textcolor{accent}{\textbullet}} & 
-\uncover<6->{\textbf{C2: 1 Class}} \\[0.3cm]
+\end{frame}
 
-\uncover<3->{\textcolor{accent}{\textbullet}} & 
-\uncover<3->{\textbf{C3: Energy in Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Same energy cost on each grid}} & 
-\uncover<7->{\textcolor{accent}{\textbullet}} & 
-\uncover<7->{\textbf{C3: 5 Classes}} \\[0.3cm]
+% -----------------------------------------------------------------------------
 
-\uncover<4->{\textcolor{accent}{\textbullet}} & 
-\uncover<4->{\textbf{C4: Paths in Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\newline \textcolor{accent}{\scriptsize $\rightarrow$ Same robot trajectories on each grid}} & 
-\uncover<8->{\textcolor{accent}{\textbullet}} & 
-\uncover<8->{\textbf{C4: 3 Classes}} \\
-\end{tabular}
-}
+% Slide 14: Phase 3 - Classification Results (Algo 1)
+\begin{frame}{\ModuleFrameTitle{3}{Phase 3: Classification Results (Algo 1)}}
+
+\vspace{0.2cm}
+\href{https://luminousrobots.github.io/RoASt-exec1-classes/global_classification.html}{\textcolor{accent}{\textbf{Results for set $\mathcal{A}$ (5 validated algorithms)}}}
+\newline \textcolor{softgray}{\scriptsize Set $\mathcal{A} = \{A_1, A_2, A_3, A_4, A_5\}$}
+\vspace{0.4cm}
+
+\begin{itemize}\setlength\itemsep{0.3cm}
+    \item<1-> \textbf{C1 (Rules): 3 Classes}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ $\{A_1\}$, $\{A_2, A_3\}$, $\{A_4, A_5\}$}
+              
+    \item<2-> \textbf{C2 (Rounds): 1 Class}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ $\{A_1, A_2, A_3, A_4, A_5\}$}
+              
+    \item<3-> \textbf{C3 (Energy): 5 Classes}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ $\{A_1\}$, $\{A_2\}$, $\{A_3\}$, $\{A_4\}$, $\{A_5\}$}
+              
+    \item<4-> \textbf{C4 (Paths): 3 Classes}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow$ $\{A_1\}$, $\{A_2, A_3\}$, $\{A_4, A_5\}$}
+\end{itemize}
 
 \vfill
 % ---- Conclusion ---------------------------------------------------
-\uncover<9->{
+\uncover<5->{
 \begin{center}
-    Same rounds (C2) but \textbf{5 energy-unique solutions} (C3)
+    \textbf{Conclusion:} Same rounds (C2) but \textbf{5 energy-unique solutions} (C3)
 \end{center}
 }
 
