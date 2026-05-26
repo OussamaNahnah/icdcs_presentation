@@ -187,7 +187,8 @@
         \node[rulebox, right=0.5cm of s4r1] (s4r2) {Rule 8};
         \draw[thickarrow] (s4r1) -- (s4r2);
         \node[left=0.3cm of s4r1, sublbl] {Sub-sol 1.4:};
-    \end{tikzpicture}
+
+        \end{tikzpicture}
     \end{center}
 }%
 \only<4>{%
@@ -203,28 +204,32 @@
         \foreach \i in {1,...,4} { \node (g1s\i) at (\i*2.2 - 2.2, 0) [box] {Sub-sol 1.\i}; }
 
         % Row R2
-        \node[accent, font=\fontsize{8.5}{9.5}\selectfont\bfseries, anchor=east] at (-1.2, -1.6) {Goal 2 sub-solutions ($R_2$)};
-        \foreach \i in {1,...,3} { \node (g2s\i) at (\i*2.2 - 1.1, -1.6) [box] {Sub-sol 2.\i}; }
+        \node[accent, font=\fontsize{8.5}{9.5}\selectfont\bfseries, anchor=east] at (-1.2, -1.3) {Goal 2 sub-solutions ($R_2$)};
+        \foreach \i in {1,...,3} { \node (g2s\i) at (\i*2.2 - 1.1, -1.3) [box] {Sub-sol 2.\i}; }
 
         % Row R3
-        \node[accent, font=\fontsize{8.5}{9.5}\selectfont\bfseries, anchor=east] at (-1.2, -3.2) {Goal 3 sub-solutions ($R_3$)};
-        \foreach \i in {1,...,2} { \node (g3s\i) at (\i*2.2, -3.2) [box] {Sub-sol 3.\i}; }
+        \node[accent, font=\fontsize{8.5}{9.5}\selectfont\bfseries, anchor=east] at (-1.2, -2.6) {Goal 3 sub-solutions ($R_3$)};
+        \foreach \i in {1,...,2} { \node (g3s\i) at (\i*2.2, -2.6) [box] {Sub-sol 3.\i}; }
+
+        % Row R4 (Base Algorithm Ab)
+        \node[accent, font=\fontsize{8.5}{9.5}\selectfont\bfseries, anchor=east] at (-1.2, -3.9) {Base algorithm ($A_b$)};
+        \node (g4s1) at (3.3, -3.9) [box] {Base $A_b$};
 
         % Background connections
         \foreach \i in {1,...,4} { \foreach \j in {1,...,3} { \draw[accent!15, thin] (g1s\i.south) -- (g2s\j.north); } }
         \foreach \i in {1,...,3} { \foreach \j in {1,...,2} { \draw[accent!15, thin] (g2s\i.south) -- (g3s\j.north); } }
+        \foreach \i in {1,...,2} { \draw[accent!15, thin] (g3s\i.south) -- (g4s1.north); }
 
         % Highlighted path 1
         \draw[accent, ultra thick] (g1s2.south) -- (g2s1.north);
         \draw[accent, ultra thick] (g2s1.south) -- (g3s2.north);
+        \draw[accent, ultra thick] (g3s2.south) -- (g4s1.north);
         
         % Highlighted path 2
         \draw[accent, ultra thick, opacity=0.6] (g1s4.south) -- (g2s2.north);
         \draw[accent, ultra thick, opacity=0.6] (g2s2.south) -- (g3s1.north);
-        
-        % Mathematical Output
-        \node[below=0.4cm, orange, font=\fontsize{9}{10}\selectfont\bfseries] at (2.2, -3.6) {Candidate Algorithm in $\mathcal{C} = \text{Valid}(R_1 \times R_2 \times \dots \times R_m) \cup A_b$};
-    \end{tikzpicture}%
+        \draw[accent, ultra thick, opacity=0.6] (g3s1.south) -- (g4s1.north);
+        \end{tikzpicture}%
     }
     \end{center}
 }%

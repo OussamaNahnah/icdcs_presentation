@@ -1,21 +1,26 @@
 % Slide 13: Phase 3 - Classification Criteria
 \begin{frame}{\ModuleFrameTitle{3}{Phase 3: Classification}}
 
-\vspace{0.2cm}Compare syntax and behavior \textbf{across all simulations }\textbf{\textcolor{accent}{\scriptsize [by RoASt]}}.
-\vspace{0.4cm}
+\vspace{0.2cm}Compare candidate algorithms \textbf{across all simulations }\textbf{\textcolor{accent}{\scriptsize [by RoASt]}}.
+% \vspace{0.2cm}Compare syntax and behavior \textbf{across all simulations }\textbf{\textcolor{accent}{\scriptsize [by RoASt]}}.
+\vspace{0.6cm}
 
-\begin{itemize}\small\setlength\itemsep{0.15cm}
-    \item<1-> \textbf{C1: Number of Rules} \textcolor{softgray}{\scriptsize (Syntax)}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ Same rule set size: $|R_A| = |R_B|$}
+\begin{itemize}\setlength\itemsep{0.6cm}
+    \item<1-> \textbf{C1: Number of Rules}
+              % \textcolor{softgray}{\scriptsize (Syntax)}\\
+              % \textcolor{accent}{\scriptsize $\hookrightarrow$ Same rule set size: $|R_A| = |R_B|$}
               
-    \item<2-> \textbf{C2: Rounds in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ Same execution LCM cycle in the exploration cycle on each simulation}
+    \item<2-> \textbf{C2: Rounds in Exploration Cycle}
+              % \textcolor{softgray}{\scriptsize (Simulation)}\\
+              % \textcolor{accent}{\scriptsize $\hookrightarrow$ Same execution LCM cycle in the exploration cycle on each simulation}
               
-    \item<3-> \textbf{C3: Energy in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ Same energy cost (movement \& color changes) on each simulation}
+    \item<3-> \textbf{C3: Energy in Exploration Cycle}
+              % \textcolor{softgray}{\scriptsize (Simulation)}\\
+              % \textcolor{accent}{\scriptsize $\hookrightarrow$ Same energy cost (movement \& color changes) on each simulation}
               
-    \item<4-> \textbf{C4: Paths in Exploration Cycle} \textcolor{softgray}{\scriptsize (Simulation)}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow$ Same robot trajectories in the exploration cycle on each simulation}
+    \item<4-> \textbf{C4: Paths in Exploration Cycle}
+              % \textcolor{softgray}{\scriptsize (Simulation)}\\
+              % \textcolor{accent}{\scriptsize $\hookrightarrow$ Same robot trajectories in the exploration cycle on each simulation}
 \end{itemize}
 
 \end{frame}
@@ -31,25 +36,34 @@
 \vspace{0.4cm}
 
 \begin{itemize}\setlength\itemsep{0.3cm}
-    \item<1-> \textbf{C1 (Rules): 3 Classes}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1\} \quad \{A_2, A_3\} \quad \{A_4, A_5\}$}
+    \only<1-3>{
+    \item<1-3> \textbf{C1 (Rules): 3 Classes}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1\}$ \textbf{(45 rules)} $\quad \{A_2, A_3\}$ \textbf{(47 rules)} $\quad \{A_4, A_5\}$ \textbf{(49 rules)}}
               
-    \item<2-> \textbf{C2 (Rounds): 1 Class}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1, A_2, A_3, A_4, A_5\} = \mathcal{A}$}
+    \item<2-3> \textbf{C2 (Rounds): 1 Class}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1, A_2, A_3, A_4, A_5\} = \mathcal{A}$ \quad \text{\textcolor{softgray}{(e.g., 72 rounds in simulation 1)}}}
               
-    \item<3-> \textbf{C3 (Energy): 5 Classes}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1\} \quad \{A_2\} \quad \{A_3\} \quad \{A_4\} \quad \{A_5\}$}
+    \item<3-3> \textbf{C3 (Energy): 5 Classes}\\
+              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1\}$\,\textbf{(160)} $\{A_2\}$\,\textbf{(164)} $\{A_3\}$\,\textbf{(166)} $\{A_4\}$\,\textbf{(168)} $\{A_5\}$\,\textbf{(170)} \textcolor{softgray}{\tiny (energy in sim. 1)}}
+    }
+
               
     \item<4-> \textbf{C4 (Paths): 3 Classes}\\
-              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_1\} \quad \{A_2, A_3\} \quad \{A_4, A_5\}$}
+              \textcolor{accent}{\scriptsize $\hookrightarrow \{A_2, A_3\} \quad \{A_1\} \quad \{A_4, A_5\}$ \textcolor{softgray}{\tiny (paths in sim. 8)}}
+              \begin{center}
+              \begin{tabular}{@{}c@{}c@{}c@{}}
+                  \input{tikz/c4_class1_paths} &
+                  \input{tikz/c4_class2_paths} &
+                  \input{tikz/c4_class3_paths}
+              \end{tabular}
+              \end{center}
 \end{itemize}
 
-\vfill
-% ---- Conclusion ---------------------------------------------------
-\uncover<5->{
-\begin{center}
-    \textbf{Conclusion:} Same rounds (C2) but \textbf{5 energy-unique solutions} (C3)
-\end{center}
-}
+% \\vfill
+% \\uncover<5->{
+% \\begin{center}
+%     \\textbf{Conclusion:} Same rounds (C2) but \\textbf{5 energy-unique solutions} (C3)
+% \\end{center}
+% }
 
 \end{frame}
