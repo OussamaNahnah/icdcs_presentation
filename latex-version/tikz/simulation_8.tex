@@ -1,0 +1,21 @@
+% C4 Class 1: {A2, A3} — path goes clockwise around obstacle
+\begin{tikzpicture}[>=Stealth, scale=0.40]
+    % Grid
+    \foreach \x in {0,...,8} \draw[densely dashed, gray!35] (\x,0) -- (\x,8);
+    \foreach \y in {0,...,8} \draw[densely dashed, gray!35] (0,\y) -- (8,\y);
+
+    % Walls (boundary)
+    \foreach \x in {0,8} \foreach \y in {0,...,8} \filldraw[black] (\x,\y) circle (0.13);
+    \foreach \y in {0,8} \foreach \x in {1,...,7} \filldraw[black] (\x,\y) circle (0.13);
+
+    % Obstacle at center
+    \filldraw[yellow!90!orange, draw=black, thick] (4,4) circle (0.16) node[black, font=\tiny\bfseries] {O};
+
+    % Robot start positions (sim 1: F at (4,5), R at (5,5))
+    \filldraw[bluebot!70, draw=black] (3,5) circle (0.16);
+    \filldraw[redbot!70, draw=black] (4,5) circle (0.16);
+
+    % Path: clockwise (right side) around obstacle
+    % Label
+    \node[font=\tiny\bfseries, anchor=north] at (4,-0.5) {Simulation 8 Initial State};
+\end{tikzpicture}
