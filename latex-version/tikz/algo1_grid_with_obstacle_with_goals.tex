@@ -13,14 +13,13 @@
     \foreach \y in {0,8} \foreach \x in {1,...,7} \filldraw[black] (\x,\y) circle (0.18);
 
     % Branching Sub-Paths (Red, Left-to-Right)
-    \draw[->, redbot, thick, densely dashed]  (6,5) -- (3,5) node[midway, above, font=\tiny\bfseries] {(2)};
+    \draw<1->[->, redbot, thick, densely dashed] (3,3) -- (6,3) node[midway, above, font=\tiny\bfseries] {(1)};
 
-    \draw[->, redbot, thick, densely dashed] (3,3) -- (6,3) node[midway, above, font=\tiny\bfseries] {(1)};
+    \draw<2->[->, redbot, thick, densely dashed]  (6,5) -- (3,5) node[midway, above, font=\tiny\bfseries] {(2)};
 
+    \draw<3->[->, redbot, thick, densely dashed] (6,4) -- (5,4) -- (5,4.3) -- (7,4.3) node[midway, above, font=\tiny\bfseries] {(3)};
 
-    \draw[->, redbot, thick, densely dashed] (6,4) -- (5,4) -- (5,4.3) -- (7,4.3) node[midway, above, font=\tiny\bfseries] {(3)};
-
-    \draw[->, redbot, thick, densely dashed]  (2,4) -- (3,4)--(3,4.9)--(6,4.9) node[midway, below, font=\tiny\bfseries] {(4)};
+    \draw<4->[->, redbot, thick, densely dashed]  (2,4) -- (3,4)--(3,4.9)--(6,4.9) node[midway, below, font=\tiny\bfseries] {(4)};
 
     % Labels (Optional)
     %\node[accent, font=\scriptsize\bfseries, anchor=north] at (4, -0.4) {Multi-Robot Bounded Arena};

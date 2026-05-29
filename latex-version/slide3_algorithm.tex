@@ -2,11 +2,11 @@
 \begin{frame}{\ModuleFrameTitle{1}{Model: Algorithm}}
 \begin{columns}[T,totalwidth=\textwidth]
 \column{0.52\textwidth}
-\uncover<1->{\textbf{Algorithm = set of rules}}
+\uncover<1->{\textbf{Algorithm is a set of rules}}
 
 \vspace{0.2cm}
 \uncover<2->{
-\textbf{Rule components}
+\textbf{Rule is view, direction and color}
 \begin{flushleft}
 \begin{tikzpicture}[>=Stealth]
   \begin{scope}[scale=0.7]
@@ -15,6 +15,7 @@
       \foreach \x in {-1,...,1} \draw[densely dashed,gray!70] (\x,-1) -- (\x,1);
       \foreach \y in {-1,...,1} \draw[densely dashed,gray!70] (-1,\y) -- (1,\y);
     \end{scope}
+    \coordinate (V) at (-0.4, 0.8);
     \foreach \x in {-1,...,1} \foreach \y in {-1,...,1} {
       \pgfmathtruncatemacro{\d}{abs(\x)+abs(\y)}
       \ifnum\d>1\relax\else \fill[gray!25] (\x,\y) circle (0.12); \fi
@@ -22,22 +23,26 @@
     \filldraw[redbot,draw=black]  (1,0) circle (0.18);
     \filldraw[bluebot,draw=black] (0,0) circle (0.18);
     \coordinate (C) at (0,0);
-    \draw[->,thick,black] (0.24,0) -- (0.60,0)
-      node[midway,above,font=\scriptsize](Rlabel){B};
-    \coordinate (D) at (Rlabel);
+    
+    \uncover<3->{
+      \draw[->,thick,black] (0.24,0) -- (0.60,0)
+        node[midway,above,font=\scriptsize](Rlabel){B};
+    }
     \coordinate (A) at (0.5,-0.1);
     \coordinate (B) at (0.6,0.6);
 
   \end{scope}
-  \node[anchor=east,scale=2.9,text=black!70] (viewbrace) at (-0.3,0) {\{};
-  \node[anchor=east,font=\scriptsize,text=black!70] at ($(viewbrace.west)+(-0.10,0)$) {View};
-  \draw[<-,black!70,line width=0.5pt] (B) -- ++(0.4, 0.4) node[right,font=\scriptsize]{Color};
-  \draw[<-,black!70,line width=0.5pt] (A) -- ++(0.4,-0.4) node[right,font=\scriptsize]{Direction};
+  \draw[<-,black!70,line width=0.5pt] (V) -- ++(-0.5, 0.3) node[left,font=\scriptsize]{View};
+  
+  \uncover<3->{
+    \draw[<-,black!70,line width=0.5pt] (B) -- ++(0.4, 0.4) node[right,font=\scriptsize]{Color};
+    \draw[<-,black!70,line width=0.5pt] (A) -- ++(0.4,-0.4) node[right,font=\scriptsize]{Direction};
+  }
 \end{tikzpicture}
   \end{flushleft}
 }
 
-\uncover<3->{
+\uncover<4->{
 \textbf{Two-rule example}
 \begin{columns}[T,totalwidth=\linewidth]
 \column{0.49\linewidth}
@@ -49,7 +54,7 @@
 
 \column{0.48\textwidth}
 
-\uncover<4->{
+\uncover<5->{
 \begin{center}
 \begin{tikzpicture}[>=Stealth,scale=0.72]
   % Grid
@@ -58,15 +63,15 @@
 
   % Phase label
   \node[font=\small,anchor=south] at (2.5,4.15) {%
-    \only<4>{\textbf{Look}}\only<5->{Look}%
+    \only<5>{\textbf{Look}}\only<6->{Look}%
     ~$>$~%
-    \only<5>{\textbf{Compute}}\only<4,6>{Compute}%
+    \only<6>{\textbf{Compute}}\only<5,7>{Compute}%
     ~$>$~%
-    \only<6>{\textbf{Move}}\only<4-5>{Move}%
+    \only<7>{\textbf{Move}}\only<5-6>{Move}%
   };
 
   % Look: highlight V=1 visibility diamonds
-  \only<4>{
+  \only<5>{
     \fill[bluebot,opacity=0.15] (2,3)--(3,2)--(2,1)--(1,2)--cycle;
     \draw[bluebot,opacity=0.50,densely dotted,thick] (2,3)--(3,2)--(2,1)--(1,2)--cycle;
     \fill[redbot,opacity=0.15]  (3,3)--(4,2)--(3,1)--(2,2)--cycle;
@@ -74,7 +79,7 @@
   }
 
   % Compute: matched rule callouts with arrows
-  \only<5>{
+  \only<6>{
     \draw[->,thick,bluebot] (2.22,2.18) -- (2.78,2.18)
       node[midway,above,font=\scriptsize,bluebot] {B};
     \draw[->,thick,redbot]  (3.22,2.18) -- (3.78,2.18)
@@ -82,23 +87,23 @@
   }
 
   % Move: robots shifted one step right
-  \only<6>{
+  \only<7>{
     \filldraw[bluebot,draw=black] (3,2) circle (0.18);
     \filldraw[redbot,draw=black]  (4,2) circle (0.18);
   }
 
   % Robots at original positions (Look + Compute only)
-  \only<4-5>{
+  \only<5-6>{
     \filldraw[bluebot,draw=black] (2,2) circle (0.18);
     \filldraw[redbot,draw=black]  (3,2) circle (0.18);
   }
 
   % Phase captions
-  \only<4>{\node[font=\tiny\bfseries,accent,anchor=north] at (2.5,-0.25) {Look: Capturing local views};}
-  \only<4>{\node[anchor=north] at (2.5,-0.85) {{\scalebox{0.7}{\RuleModule{1}{redbot/1/0}{bluebot}{}{}{View 1}}}\hspace{4pt}{\scalebox{0.7}{\RuleModule{1}{bluebot/{-1}/0}{redbot}{}{}{View 2}}}};}
-  \only<5>{\node[font=\tiny\bfseries,accent,anchor=north] at (2.5,-0.25) {Compute: Determining next positions};}
-  \only<5>{\node[anchor=north] at (2.5,-0.85) {{\scalebox{0.7}{\RuleModule{1}{redbot/1/0}{bluebot}{right}{B}{Rule 1}}}\hspace{4pt}{\scalebox{0.7}{\RuleModule{1}{bluebot/{-1}/0}{redbot}{right}{R}{Rule 2 with 90° rotation}}}};}
-  \only<6>{\node[font=\tiny\bfseries,accent,anchor=north] at (2.5,-0.25) {Move: Transitioning to new position};}
+  \only<5>{\node[font=\tiny\bfseries,accent,anchor=north] at (2.5,-0.25) {Look: Capturing local views};}
+  \only<5>{\node[anchor=north] at (2.5,-0.85) {{\scalebox{0.7}{\RuleModule{1}{redbot/1/0}{bluebot}{}{}{View 1}}}\hspace{4pt}{\scalebox{0.7}{\RuleModule{1}{bluebot/{-1}/0}{redbot}{}{}{View 2}}}};}
+  \only<6>{\node[font=\tiny\bfseries,accent,anchor=north] at (2.5,-0.25) {Compute: Determining next positions};}
+  \only<6>{\node[anchor=north] at (2.5,-0.85) {{\scalebox{0.7}{\RuleModule{1}{redbot/1/0}{bluebot}{right}{B}{Rule 1}}}\hspace{4pt}{\scalebox{0.7}{\RuleModule{1}{bluebot/{-1}/0}{redbot}{right}{R}{Rule 2 with 90° rotation}}}};}
+  \only<7>{\node[font=\tiny\bfseries,accent,anchor=north] at (2.5,-0.25) {Move: Transitioning to new position};}
 \end{tikzpicture}
 \end{center}
 }

@@ -25,9 +25,8 @@
 \midrule
 \href{https://robots.app.bramas.fr/MAC2023/?TCS2023-2/0}{\textbf{Algo 1}} & \textbf{Standard Pole} \textcolor{softgray}{\scriptsize (8 goals)} & \textbf{5} & 4 / 4 levels & \circlecell{1}{$\sim$2 seconds} & \href{https://luminousrobots.github.io/RoASt-Executions/Exec1_Algo1_Pole_Goals1_Main/viewer.html}{\textcolor{accent}{\textbf{5}}} \\
 \midrule
-\href{https://robots.app.bramas.fr/MAC2023/?TCS2023-2/1}{\textbf{Algo 2}} & \textbf{Standard Pole} \textcolor{softgray}{\scriptsize (11 goals)} & \circlecell{3}{\textbf{373,248}} & 4 / 12 levels & \circlecell{1}{$\sim$1 minute} & \href{https://luminousrobots.github.io/RoASt-Executions/Exec3_Algo2_Pole_Goals1_Main/viewer.html}{\circlecell{2}{\textcolor{accent}{\textbf{115}}}} \\
-Algo 2 & \textbf{See-Through Hole} \circlecellnamed{2}{\textcolor{softgray}{\scriptsize (Extra initial config)}}{tableRef} & 373,248 & 4 / 12 levels & $\sim$1 minute & \href{https://luminousrobots.github.io/RoASt-Executions/Exec5_Algo2_Hole_Goals1/viewer.html}{\circlecell{2}{\textcolor{accent}{\textbf{115}}}} \\
-Algo 2 & Goal 9 relaxed \textcolor{softgray}{\scriptsize (Wider bypass distance)} & \circlecell{3}{\textbf{117,407,808}} & 4 / 32 levels$^*$ & 3 hours 7 min & \href{https://luminousrobots.github.io/RoASt-Executions/Exec7_Algo2_Pole_Goals4/viewer.html}{\textcolor{accent}{\textbf{475}}} \\
+\href{https://robots.app.bramas.fr/MAC2023/?TCS2023-2/1}{\textbf{Algo 2}} & \textbf{Standard Pole} \textcolor{softgray}{\scriptsize (11 goals)} & \circlecell{2}{\textbf{373,248}} & 4 / 12 levels & \circlecell{1}{$\sim$1 minute} & \href{https://luminousrobots.github.io/RoASt-Executions/Exec3_Algo2_Pole_Goals1_Main/viewer.html}{\textcolor{accent}{\textbf{115}}} \\
+Algo 2 & Goal 9 relaxed \textcolor{softgray}{\scriptsize (Wider bypass distance)} & \circlecell{2}{\textbf{117,407,808}} & 4 / 32 levels$^*$ & 3 hours 7 min & \href{https://luminousrobots.github.io/RoASt-Executions/Exec7_Algo2_Pole_Goals4/viewer.html}{\textcolor{accent}{\textbf{475}}} \\
 \bottomrule
 \end{tabular}
 }
@@ -36,23 +35,7 @@ Algo 2 & Goal 9 relaxed \textcolor{softgray}{\scriptsize (Wider bypass distance)
 \vspace{0.15cm}
 \begin{itemize}\setlength\itemsep{0.2cm}
     \item<1-> \textbf{Synthesis Time:} Sensitive to visibility range
-    \item<2-> \textbf{Pole vs. Hole:} Identical outcomes
-        \only<2>{\hfill \raisebox{-0.3cm}{\begin{tikzpicture}[remember picture, scale=0.35, >=Stealth, line cap=round, baseline=(current bounding box.center)]
-            \begin{scope}
-                \foreach \y in {0,...,0} {
-                    \draw[densely dashed, gray!70, thin] (-1,\y) -- (1,\y);
-                }
-            \end{scope}
-            
-            \coordinate (illF) at (0,0);
-            \filldraw[orangebot, draw=black] (0,0) circle (0.18);
-            \filldraw[redbot, draw=black] (1,0) circle (0.18);
-            \filldraw[bluebot, draw=black] (-1,0) circle (0.18);
-            \begin{scope}[overlay]
-                \draw[redbot, ->, >=Stealth, thick] (-16.4,7) -- (-1,1);
-            \end{scope}
-        \end{tikzpicture}}}
-    \item<3-> \textbf{Combinations:} Parameter relaxation quickly yields high numbers
+    \item<2-> \textbf{Combinations:} Parameter relaxation quickly yields high numbers
 \end{itemize}
 
 \vfill
