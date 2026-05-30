@@ -1,0 +1,62 @@
+
+
+
+\begin{frame}{Overview of Our Methodology: Pipeline}
+
+\vspace{0.4cm}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=0.25cm,
+    % Main phase box style
+    box/.style={rectangle, draw=accent, thick, fill=accent!5, text width=2.9cm, align=center, rounded corners, inner sep=1.2ex, font=\scriptsize, minimum height=1.8cm},
+    % Style for inner simulation/proof boxes
+    innerbox/.style={rectangle, draw=accent, thick, fill=white, text width=1.1cm, align=center, rounded corners=2pt, inner sep=1ex, font=\tiny, minimum height=0.7cm},
+    % Arrow style
+    arrow/.style={->, >=Stealth, thick, accent}
+]
+
+    % Define a simple, robust stickman pic to avoid external font packages
+    \tikzset{
+      stickman/.pic={
+        \draw[thick, accent] (0,0.2) circle (0.1); % head
+        \draw[thick, accent] (0,0.1) -- (0,-0.2);  % body
+        \draw[thick, accent] (-0.2,0) -- (0.2,0);  % arms
+        \draw[thick, accent] (0,-0.2) -- (-0.15,-0.4); % left leg
+        \draw[thick, accent] (0,-0.2) -- (0.15,-0.4);  % right leg
+      }
+    }
+
+    % --- Step 1 ---
+    \node[box] (step1) {\textbf{1. Generate candidate algorithms}};
+
+    % Input to Step 1 (Scenario + Stickman)
+    \coordinate (user1) at ([yshift=1.2cm]step1.north);
+    \pic[scale=0.7] at (user1) {stickman};
+    \node[below=0.35cm of user1, font=\scriptsize, text=accent, inner sep=2pt] (scenario) {Scenario};
+    \draw[arrow] (scenario) -- (step1);
+
+    % --- Step 2 ---
+    \node[box, right=of step1] (step2) {\textbf{2. Validation} \\ \vspace{0.1cm} Simulation \& Proof};
+
+    % Input to Step 2 (Proof + Stickman)
+    \coordinate (user2) at ([yshift=-1.2cm]step2.south);
+    \pic[scale=0.7] at (user2) {stickman};
+    \node[above=0.22cm of user2, font=\scriptsize, text=accent, inner sep=2pt] (prooflabel) {Proof by hand};
+    \draw[arrow] (prooflabel) -- (step2);
+
+    % --- Step 3 ---
+    \node[box, right=of step2] (step3) {\textbf{3. Classification}};
+
+    % Output from Step 3
+    \draw[arrow] (step3.south) -- ++(0, -0.6) node[below, font=\scriptsize, text=accent, align=center] {$\mathcal{A}$ \\ + classes};
+
+    % --- Horizontal Arrows ---
+    \draw[arrow] (step1) -- node[above, font=\small, text=accent] {$\mathcal{C}$} (step2);
+    \draw[arrow] (step2) -- node[above, font=\small, text=accent] {$\mathcal{A}$} (step3);
+
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+

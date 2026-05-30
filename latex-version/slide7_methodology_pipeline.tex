@@ -1,27 +1,109 @@
-% Slide 7: Overview of Our Methodology - Pipeline
-\begin{frame}{\ModuleFrameTitle{3}{Overview of Our Methodology: Pipeline}}
+\begin{frame}{Overview of Our Methodology: Pipeline}
+% --- Professional Publication-Grade Technical Palette ---
+\definecolor{techDark}{RGB}{33, 37, 41}      % Charcoal black for text and lines
+\definecolor{techGray}{RGB}{108, 117, 125}   % Neutral slate gray for labels
+\definecolor{techLight}{RGB}{248, 249, 250}  % Off-white for clean box backgrounds
 
-\vspace{0.8cm}
+\vspace{0.4cm}
 
 \begin{center}
 \begin{tikzpicture}[
-    node distance=0.25cm,
-    box/.style={rectangle, draw=accent, thick, fill=accent!5, text width=3.0cm, align=center, rounded corners, inner sep=1.2ex, font=\scriptsize, minimum height=1.8cm},
-    arrow/.style={->, >=Stealth, thick, accent}
+    scale=0.9,
+    every node/.append style={scale=0.9},
+    node distance=0.72cm,
+    % Main phase box style - matches your sketch dimensions precisely
+    box/.style={
+        rectangle, 
+        draw=techDark!80, 
+        thick, 
+        fill=techLight, 
+        text width=2.8cm, 
+        align=center, 
+        rounded corners=3pt, 
+        inner sep=1.2ex, 
+        font=\scriptsize, 
+        minimum height=1.7cm
+    },
+    % Sub-boxes inside Step 2 (simulation and proof)
+    subbox/.style={
+        rectangle, 
+        draw=techDark!80, 
+        thick, 
+        fill=white, 
+        text width=1.3cm, 
+        align=center, 
+        rounded corners=2pt, 
+        inner sep=0.8ex, 
+        font=\scriptsize, 
+        text=techDark, 
+        minimum height=0.6cm
+    },
+    % Crisp, clean arrows matching technical drafts
+    arrow/.style={
+        ->, 
+        >=Stealth, 
+        thick, 
+        draw=techDark!90
+    }
 ]
 
-    % Step 1: Synthesis
-    \node<1->[box] (step1) {\textbf{1. Generate candidate algorithms ($\mathcal{C}$)}};
-    
-    % Step 2: Validation
-    \node<2->[box, right=of step1] (step2) {\textbf{2. Validation by simulation \& proof by hand ($\mathcal{A}$)}};
-    
-    % Step 3: Classification
-    \node<3->[box, right=of step2] (step3) {\textbf{3. Classification}};
+    % --- Simple Technical Actor Icon (faithful to sketch) ---
+    \tikzset{
+      actor/.pic={
+        \draw[thick, techDark] (0,0.18) circle (0.07); % head
+        \draw[thick, techDark] (0,0.11) -- (0,-0.12); % body
+        \draw[thick, techDark] (-0.11,0.02) -- (0.11,0.02); % arms
+        \draw[thick, techDark] (0,-0.12) -- (-0.08,-0.3); % left leg
+        \draw[thick, techDark] (0,-0.12) -- (0.08,-0.3); % right leg
+      }
+    }
 
-    % Horizontal Arrows
-    \draw<2->[arrow] (step1) -- (step2);
-    \draw<3->[arrow] (step2) -- (step3);
+    % ==================== PHASE 1 ====================
+    \node[box] (step1) {\textbf{1. Generate candidate algorithms}};
+
+    % Input: Scenario Actor (stands above Stage 1)
+    \coordinate (user1) at ([yshift=0.85cm]step1.north);
+    \pic at (user1) {actor};
+    \node[above=0.25cm of user1, font=\scriptsize, text=techDark] (scenario) {Goals};
+    \draw[arrow] ([yshift=-0.3cm]user1) -- (step1.north);
+
+
+    % ==================== PHASE 2 ====================
+    % Outer validation container
+    \node[box, right=of step1, minimum width=4.0cm] (step2) {};
+    
+    % Step 2 Internal Header
+    \node[anchor=north, font=\scriptsize\bfseries, text=techDark, yshift=-0.12cm] 
+        at (step2.north) {2. Validation};
+    
+    % Nested simulation & proof boxes
+    \node[subbox, anchor=south, xshift=-0.9cm, yshift=0.18cm] (sim) at (step2.south) {\strut simulation};
+    \node[subbox, anchor=south, xshift=0.9cm, yshift=0.18cm] (proof) at (step2.south) {\strut proof};
+    
+    % Conjunction symbol (+) between simulation and proof
+    \node[font=\scriptsize\bfseries, text=techDark!70, anchor=center, yshift=0.48cm] 
+        at (step2.south) {+};
+
+    % Actor pointing directly up to the proof sub-box
+    \coordinate (user2) at ([yshift=-0.9cm]proof.south);
+    \pic at (user2) {actor};
+    \draw[arrow] ([yshift=0.25cm]user2) -- (proof.south);
+
+
+    % ==================== PHASE 3 ====================
+    \node[box, right=of step2] (step3) {\textbf{3. Classification}};
+
+
+    % ==================== INTER-PHASE DATA FLOWS ====================
+    % C-labeled transit arrow
+    \draw[arrow] (step1.east) -- node[above=0.02cm, font=\small] {$\mathcal{C}$} (step2.west);
+
+    % A-labeled transit arrow
+    \draw[arrow] (step2.east) -- node[above=0.02cm, font=\small] {$\mathcal{A}$} (step3.west);
+
+    % Output arrow (down-then-right layout matching sketch output style)
+    \draw[arrow] (step3.east) -- ++(0.3, 0) -- ++(0, -1.0) 
+        node[below=0.05cm, font=\scriptsize, text=techDark, align=center] {$\mathcal{A}$ \\ + classes};
 
 \end{tikzpicture}
 \end{center}
