@@ -159,32 +159,28 @@
         thickarrow/.style={->, >=Stealth, thick, accent!60}
     ]
         % Suite 1
-        \node[rulebox] (s1r1) {Rule 80};
-        \node[rulebox, right=0.5cm of s1r1] (s1r2) {Rule 99};
-        \node[rulebox, right=0.5cm of s1r2] (s1r3) {Rule 1};
-        \node[rulebox, right=0.5cm of s1r3] (s1r4) {Rule 5};
-        \draw[thickarrow] (s1r1) -- (s1r2); \draw[thickarrow] (s1r2) -- (s1r3); \draw[thickarrow] (s1r3) -- (s1r4);
+        \node[rulebox] (s1r1) {P-Rule 80};
+        \node[rulebox, right=0.5cm of s1r1] (s1r2) {P-Rule 99};
+        \node[rulebox, right=0.5cm of s1r2] (s1r3) {P-Rule 1};
+        \node[rulebox, right=0.5cm of s1r3] (s1r4) {P-Rule 5};
         \node[left=0.3cm of s1r1, sublbl] {Sub-sol 1.1:};
 
         % Suite 2
-        \node[rulebox, below=0.55cm of s1r1] (s2r1) {Rule 12};
-        \node[rulebox, right=0.5cm of s2r1] (s2r2) {Rule 45};
-        \node[rulebox, right=0.5cm of s2r2] (s2r3) {Rule 3};
-        \draw[thickarrow] (s2r1) -- (s2r2); \draw[thickarrow] (s2r2) -- (s2r3);
+        \node[rulebox, below=0.55cm of s1r1] (s2r1) {P-Rule 12};
+        \node[rulebox, right=0.5cm of s2r1] (s2r2) {P-Rule 45};
+        \node[rulebox, right=0.5cm of s2r2] (s2r3) {P-Rule 3};
         \node[left=0.3cm of s2r1, sublbl] {Sub-sol 1.2:};
 
         % Suite 3
-        \node[rulebox, below=0.55cm of s2r1] (s3r1) {Rule 110};
-        \node[rulebox, right=0.5cm of s3r1] (s3r2) {Rule 22};
-        \node[rulebox, right=0.5cm of s3r2] (s3r3) {Rule 4};
-        \node[rulebox, right=0.5cm of s3r3] (s3r4) {Rule 31};
-        \draw[thickarrow] (s3r1) -- (s3r2); \draw[thickarrow] (s3r2) -- (s3r3); \draw[thickarrow] (s3r3) -- (s3r4);
+        \node[rulebox, below=0.55cm of s2r1] (s3r1) {P-Rule 110};
+        \node[rulebox, right=0.5cm of s3r1] (s3r2) {P-Rule 22};
+        \node[rulebox, right=0.5cm of s3r2] (s3r3) {P-Rule 4};
+        \node[rulebox, right=0.5cm of s3r3] (s3r4) {P-Rule 31};
         \node[left=0.3cm of s3r1, sublbl] {Sub-sol 1.3:};
 
         % Suite 4
-        \node[rulebox, below=0.55cm of s3r1] (s4r1) {Rule 201};
-        \node[rulebox, right=0.5cm of s4r1] (s4r2) {Rule 8};
-        \draw[thickarrow] (s4r1) -- (s4r2);
+        \node[rulebox, below=0.55cm of s3r1] (s4r1) {P-Rule 201};
+        \node[rulebox, right=0.5cm of s4r1] (s4r2) {P-Rule 8};
         \node[left=0.3cm of s4r1, sublbl] {Sub-sol 1.4:};
 
         \end{tikzpicture}
